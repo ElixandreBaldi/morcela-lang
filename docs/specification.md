@@ -85,3 +85,57 @@ Semântica:
 Independente da quantidade de operandos na divisão a ordem sempre será da esquerda para a direita, ou seja, inicialmente o primeiro operando é armazenado no endereço temporário, e então o endereço temporário recebe o acúmulo da operação com o próximo operando até acabar.
 
 Os operandos 1 e 2 podem ser tanto variáveis (endereço de valor em memória) quanto um valor direto (literal).
+
+## Operadores Lógicos
+
+Para a realizar operações com operadores lógicos é necessário que todas os operandos sejam do tipo `Boolean`.
+
+Vale lembrar que temos o tipo primitivo booleano e qualquer expressão relacional ou lógica armazena o resultado em um endereço temporário (identificador). O resultado da operação lógica também é armazenado num endereço temporário.
+
+### And
+
+Sintaxe:
+
+```
+operando1 && operando2
+```
+
+Semântica:
+
+O resultado proveniente desta operação seguirá as regras da tabela verdade do AND.
+
+### Or
+
+Sintaxe:
+
+```
+operando1 || operando2
+```
+
+Semântica:
+
+O resultado proveniente desta operação seguirá as regras da tabela verdade do OR.
+
+### Xor
+
+Sintaxe:
+
+```
+operando1 ^ operando2
+```
+
+Semântica:
+
+O resultado proveniente desta operação seguirá as regras da tabela verdade do XOR
+
+### Not
+
+Sintaxe:
+
+```
+!(operador1)
+```
+
+Semântica:
+
+O resultado proveniente desta operação seguirá as regras da tabela verdade do XOR
