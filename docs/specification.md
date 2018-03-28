@@ -418,3 +418,108 @@ As palavras reservadas da MorcelaLang são todas em maiúsculo:
 - `PRINT`: Comando utilizado para escrever na tela as saídas desejadas.
 
 - `SCAN`: Comando utilizado para ler alguma entrada.
+
+## Estrutura geral do MORCELALANG
+
+```
+MORCELA {
+	VAR {		
+    STRING: word[255];
+    DOUBLE: double1, y, var, var2;
+    BOLEAN: flag;
+	}
+
+	BODY {
+    double1 = 1.0;
+    y = 2.0;    
+    var2 = double1;
+    word = "Entre com um valor";
+    PRINT(word);
+    SCAN(var);
+
+    IF ( double1 < y ) {
+		    -- Procedimento --
+    }
+
+    WHILE ( var < var2 ) {
+		    -- Procedimento --
+		}
+
+		DO {
+		    -- Procedimento --
+
+		} WHILE ( var < var2 );
+
+		SWITCH ( flag ) {
+      CASE flag:
+        -- Procedimento --
+      STOP;
+			CASE 1:
+        -- Procedimento --
+      STOP;
+      DEFAULT:
+			   -- Procedimento --
+	    STOP;
+		}
+	}
+}
+
+```
+
+## Especificação formal (EBNF);
+```
+<MORCELA> -> ‘MORCELA {' <SECTION> '}'
+<SECTION> ->   [<VAR>] <BODY>
+<VAR> -> ‘VAR {' <VARSECTION> '}'
+<BODY> -> ‘BODY {' <BODYSECTION> '}'
+
+<VARSECTION> -> ( <TYPEVAR> : <NAMEVAR> ’;’
+                  | <DECLARATIONSTRING> )  [<VARSECTION>]
+
+<TYPEVAR> -> (‘BOOLEAN’ | ‘DOUBLE’)
+<NAMEVAR> -> <EXPRESSIONNAMES> [,  <NAMEVAR>]
+<DECLARATIONSTRING> -> ‘STRING: ’ <NAMESTRING> <VARSECTION>
+<NAMESTRING> -> ‘[‘ [0-9]⁺ ‘]’ [,  <NAMESTRING>] ‘;’
+
+<BODYSECTION> -> '{' <COMUMSECTION> '}'
+
+<OPERATORLOGICAL> -> ( <OPERATING> ‘&&’ <OPERATING>
+                      │ <OPERATING> ‘II’ <OPERATING>
+                      │ <OPERATING> ‘^’ <OPERATING>
+                      │ ‘!’ <OPERATING> )
+
+<OPERATORARITHMETIC> -> ( <OPERATING> ‘+’ <OPERATING>
+                          │ <OPERATING> ‘-’ <OPERATING>
+                          │ <OPERATING> ‘*’ <OPERATING>
+                          │ <OPERATING> ‘/’ <OPERATING> )
+
+<OPERATORRELATION> -> 	( <OPERATING> ‘==’ <OPERATING>
+                          | <OPERATING> ‘>’ <OPERATING>
+                          │<OPERATING> ‘<’ <OPERATING>
+                          │<OPERATING> ‘>=’ <OPERATING>
+                          │<OPERATING> ‘<=’ <OPERATING>
+                          | <OPERATING> ‘!=’ <OPERATING> )
+
+<OPERATORATTRIBUTION> -> <EXPRESSIONNAMES> ‘=’ <OPERATING> ‘;’
+
+<OPERATING> -> ( <EXPRESSIONNAMES> | <OPERATORRELATION>
+                  | <OPERATORARITHMETIC> | <OPERATORLOGICAL> )
+
+<STRUCTWHILE> -> WHILE <COMUMCONDITION> <COMUMSECTIONRESOURCE>
+<STRUCTDOWHILE> -> ‘DO’ <COMUMSECTIONRESOURCE> ‘WHILE’ <COMUMCONDITION> ‘;’
+
+<STRUCTIF> -> ‘IF’ <COMUMCONDITION> <COMUMSECTIONRESOURCE> [<STRUCTELSE>]
+<STRUCTELSE> -> ‘ELSE’ ( <STRUCTIF> | <COMUMSECTIONRESOURCE>)
+
+<STRUCTSWITCH> -> SWITCH (’ <EXPRESSIONNAMES>  ’)’ <STRUCTSECTION>
+<STRUCTCASE> -> ‘CASE’ <EXPRESSIONNAMES>’:’ <COMUMCONDITION> ‘STOP;’ [STRUCTCASE]
+
+<EXPRESSIONNAMES> -> [A-Za-z] ([A-Za-z] | _ | - | [0-9])*
+<COMUMSECTIONRESOURCE> -> ‘{‘ <COMUMSECTION> ‘}’
+<STRUCTSECTION> -> ‘{‘ <STRUCTCASE> <DEFAULTSWITCH>‘}’
+<DEFAULTSWITCH> -> DEFAULT: <COMUMCONDITION> STOP;’
+<COMUMCONDITION> -> ‘(’ <OPERATING> ‘)’
+
+<COMUMSECTION> -> ( <STRUCTSWITCH> | <STRUCTIF> | <STRUCTWHILE> | <STRUCTDOWHILE> | <OPERATORATTRIBUTION>
+
+```
