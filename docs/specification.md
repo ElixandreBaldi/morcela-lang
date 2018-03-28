@@ -515,22 +515,11 @@ MORCELA {
 
 <OPERATOR> -> ( <EXPRESSION_NAME> | <RELATIONAL_STATEMENT> | <ARITHMETIC_STATEMENT> | <LOGICAL_STATEMENT> | DIRECT_VALUE )
 
-<LOGICAL_STATEMENT> -> ( <OPERATOR> ‘&&’ <OPERATOR>
-                        │ <OPERATOR> ‘II’ <OPERATOR>
-                        │ <OPERATOR> ‘^’ <OPERATOR>
-                        │ ‘!’ <OPERATOR> )
+<LOGICAL_STATEMENT> -> ( <OPERATOR> ‘&&’ <OPERATOR> │ <OPERATOR> ‘II’ <OPERATOR> │ <OPERATOR> ‘^’ <OPERATOR> │ ‘!’ <OPERATOR> )
 
-<ARITHMETIC_STATEMENT> -> ( <OPERATOR> ‘+’ <OPERATOR>
-                            │ <OPERATOR> ‘-’ <OPERATOR>
-                            │ <OPERATOR> ‘*’ <OPERATOR>
-                            │ <OPERATOR> ‘/’ <OPERATOR> )
+<ARITHMETIC_STATEMENT> -> ( <OPERATOR> ‘+’ <OPERATOR> │ <OPERATOR> ‘-’ <OPERATOR> │ <OPERATOR> ‘*’ <OPERATOR> │ <OPERATOR> ‘/’ <OPERATOR> )
 
-<RELATIONAL_STATEMENT> -> 	( <OPERATOR> ‘==’ <OPERATOR>
-                              | <OPERATOR> ‘>’ <OPERATOR>
-                              │ <OPERATOR> ‘<’ <OPERATOR>
-                              │ <OPERATOR> ‘>=’ <OPERATOR>
-                              │ <OPERATOR> ‘<=’ <OPERATOR>
-                              | <OPERATOR> ‘!=’ <OPERATOR> )
+<RELATIONAL_STATEMENT> -> 	( <OPERATOR> ‘==’ <OPERATOR> | <OPERATOR> ‘>’ <OPERATOR> │ <OPERATOR> ‘<’ <OPERATOR> │ <OPERATOR> ‘>=’ <OPERATOR> │ <OPERATOR> ‘<=’ <OPERATOR> | <OPERATOR> ‘!=’ <OPERATOR> )
 
 <ATTRIBUTION_STATEMENT> -> <EXPRESSION_NAMES> ‘=’ <OPERATOR> ‘;’
 
