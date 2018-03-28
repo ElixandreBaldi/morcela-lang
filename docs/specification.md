@@ -35,7 +35,7 @@ As operações descritas abaixo resultarão em valores atribuídos num endereço
 Sintaxe:
 
 ```
-operando1 + operando2 + … + operandoN
+operando1 + operando2 + … + operandoN;
 ```
 
 Semântica:
@@ -49,7 +49,7 @@ Os operandos 1 e 2 podem ser tanto um identificador quanto um valor imediato.
 Sintaxe:
 
 ```
-operando1 - operando2 - … - operandoN
+operando1 - operando2 - … - operandoN;
 ```
 
 Semântica:
@@ -63,7 +63,7 @@ Os operandos 1 e 2 podem ser tanto um identificador quanto um valor imediato.
 Sintaxe:
 
 ```
-operando1 * operando2 * … * operandoN
+operando1 * operando2 * … * operandoN;
 ```
 
 Semântica:
@@ -77,7 +77,7 @@ Os operandos 1 e 2 podem ser tanto um identificador quanto um valor imediato.
 Sintaxe:
 
 ```
-operando1 / operando2 / … / operandoN
+operando1 / operando2 / … / operandoN;
 ```
 
 Semântica:
@@ -97,7 +97,7 @@ Vale lembrar que temos o tipo primitivo BOOLEANo e qualquer expressão relaciona
 Sintaxe:
 
 ```
-operando1 && operando2
+operando1 && operando2;
 ```
 
 Semântica:
@@ -109,7 +109,7 @@ O resultado proveniente desta operação seguirá as regras da tabela verdade do
 Sintaxe:
 
 ```
-operando1 || operando2
+operando1 || operando2;
 ```
 
 Semântica:
@@ -121,7 +121,7 @@ O resultado proveniente desta operação seguirá as regras da tabela verdade do
 Sintaxe:
 
 ```
-operando1 ^ operando2
+operando1 ^ operando2;
 ```
 
 Semântica:
@@ -133,7 +133,7 @@ O resultado proveniente desta operação seguirá as regras da tabela verdade do
 Sintaxe:
 
 ```
-!(operador1)
+!(operador1);
 ```
 
 Semântica:
@@ -149,7 +149,7 @@ O resultado da operação lógica será do tipo `BOOLEAN`, armazenado num endere
 Sintaxe:
 
 ```
-operando1 < operando2
+operando1 < operando2;
 ```
 
 Semântica:
@@ -161,7 +161,7 @@ Semântica:
 Sintaxe:
 
 ```
-operando1 > operando2
+operando1 > operando2;
 ```
 
 Semântica:
@@ -173,7 +173,7 @@ Semântica:
 Sintaxe:
 
 ```
-operando1 == operando2
+operando1 == operando2;
 ```
 
 Semântica:
@@ -185,7 +185,7 @@ Semântica:
 Sintaxe:
 
 ```
-operando1 != operando2
+operando1 != operando2;
 ```
 
 Semântica:
@@ -197,7 +197,7 @@ Semântica:
 Sintaxe:
 
 ```
-operando1 <= operando2
+operando1 <= operando2;
 ```
 
 Semântica:
@@ -209,7 +209,7 @@ Semântica:
 Sintaxe:
 
 ```
-operando1 >= operando2
+operando1 >= operando2;
 ```
 
 Semântica:
@@ -282,3 +282,139 @@ Nome_do_boolean = FALSE;
 Nome_do_boolean = 1 < 2;
 Nome_do_double = Nome_de_outro_double;
 ```
+
+## Saltos Condicionais
+
+As estruturas de saltos condicionais operam com base em expressões lógicas, que retornam resultam num valor `BOOLEAN`.
+
+Caso a condição resultar `TRUE`, aquele bloco será executado, caso contrário o fluxo do programa será seguido.
+
+### Se então
+
+Sintaxe:
+
+```
+IF (condição) {
+	// procedimentos
+} ELSE IF (condição) {
+	// procedimentos
+} ELSE {
+	// procedimentos
+}
+```
+
+Semântica:
+
+A estrutura `IF` contém um bloco de procedimentos que serão executados caso a condição seja verdadeira e, caso haja um bloco `ELSE`, o programa ignorará. Caso a condição seja falsa o programa segue o fluxo de forma que pode encontrar um `ELSE IF`, um `ELSE`, ou o fim da estrutura. Caso entre na condição `ELSE IF`, o bloco `ELSE` será ignorado, e caso entre no `ELSE` quer dizer que o(s) bloco(s) acima não foram executados.
+
+As restrições ficam por conta das expressões lógicas (descritas anteriormente).
+
+### Caso
+
+Sintaxe:
+
+```
+SWITCH (operando) {
+	CASE operando1:
+    //procedimentos
+	   STOP;
+	CASE operando2:
+    //procedimentos
+	   STOP;
+  DFLT:
+    //procedimentos
+	   STOP;
+}
+```
+
+Semântica:
+
+A estrutura `SWITCH CASE` compara o operando_para_testes com os operandos nos "casos" com o operador de igualdade (`==`).
+
+Caso alguma comparação resulte em `TRUE`, o bloco do operando em questão é executado, até que o `STOP` finalize a estrutura.
+
+Caso nenhuma comparação for satisfeita o bloco do `DFLT` será executado e assim a estrutura será finalizada.
+
+As restrições ficam por conta das expressões lógicas (descritas anteriormente).
+
+## Repetição
+
+Assim como nas estruturas de saltos condicionais, as estruturas de repetição são executadas com base em expressões lógicas, de forma que as restrições ficam por conta da determinada expressão descrita anteriormente.
+
+### Enquanto
+
+Sintaxe:
+
+```
+WHILE (operando){
+	//procedimentos
+}
+```
+
+Semântica:
+
+Nesta estrutura, o bloco em questão será repetido até o momento que a condição resultar num valor `FALSE`, de forma que a o teste condicional é realizado antes de executar a primeira vez do laço, podendo assim acontecer do laço nunca ser executado.
+
+### Faça enquanto
+
+Sintaxe:
+
+```
+DO {
+	//procedimentos
+} WHILE (operando);
+```
+
+Semântica:
+
+Nesta estrutura, o bloco em questão será repetido até o momento que a condição resultar num valor `FALSE`, de forma que a o teste condicional é realizado depois de executar a primeira vez do laço, assim o bloco será executado pelo menos uma vez.
+
+## Identificadores
+
+Identificadores são utilizados são utilizados para rotular a identidade de uma variável. Eles devem estar sempre antes do nome de uma variável. Servem também para dizer ao compilador que tudo que está escrito após eles são conteúdos de variáveis
+
+```
+DOUBLE: variavel1;
+```
+
+O termo `DOUBLE` será utilizado para definir que uma variável será do tipo real de dupla precisão.
+
+```
+BOOLEAN: variavel1;
+```
+
+O termo `BOOLEAN` será utilizado para definir que uma variável será do tipo booleano.
+
+```
+STRING: variavel1;
+```
+
+O termo `STRING`, será utilizado para definir que uma variável será do tipo cadeia de caracteres.
+
+## Palavras reservadas
+
+As palavras reservadas da MorcelaLang são todas em maiúsculo:
+
+- `IF`: Comando condicional que altera o fluxo do programa de acordo com uma condição que pode ser `TRUE` ou `FALSE`.
+
+- `ELSE`: Indica um bloco de comandos a ser executado quando a condição do comando `IF` for `FALSE`.
+
+- `DO`: Estrutura de repetição usada em conjunto com o `WHILE`. O comando `DO ... WHILE` faz com que os comandos do bloco a ser repetido sejam executados no mínimo uma vez.
+
+- `WHILE`: Estrutura de repetição que executa enquanto uma condição é `TRUE`.
+
+- `SWITCH`: Comando de seleção usando em conjunto com o comando `CASE`, permite escolher entre várias opções.
+
+- `CASE`: Utilizado dentro do comando `SWITCH` para selecionar uma constante.
+
+- `VAR`: Seção no código que denota que tudo o que está escrito nele são variáveis.
+
+- `MORCELA`: Seção principal do código, em que todo o programa é escrito dentro.
+
+- `BODY`: Seção no código que denota que tudo o que está escrito nele faz parte do corpo principal do código.
+
+- `STOP`: Comando para forçar a saída imediata dos comandos `SWITCH`, `WHILE`, e, `DO ... WHILE`.
+
+- `PRINT`: Comando utilizado para escrever na tela as saídas desejadas.
+
+- `SCAN`: Comando utilizado para ler alguma entrada.
