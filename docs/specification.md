@@ -419,11 +419,11 @@ As palavras reservadas da MorcelaLang são todas em maiúsculo:
 
 - `SCAN`: Comando utilizado para ler alguma entrada.
 
-## Estrutura geral do MORCELALANG
+## Estrutura geral
 
 ```
 MORCELA {
-	VAR {		
+  VAR {		
     STRING: word[255];
     DOUBLE: double1, y, var, var2;
     BOLEAN: flag;
@@ -438,15 +438,15 @@ MORCELA {
     SCAN(var);
 
     IF ( double1 < y ) {
-		    -- Procedimento --
+		    // Procedimento
     }
 
     WHILE ( var < var2 ) {
-		    -- Procedimento --
+		    // Procedimento
 		}
 
 		DO {
-		    -- Procedimento --
+		    // Procedimento --
 
 		} WHILE ( var < var2 );
 
@@ -457,7 +457,7 @@ MORCELA {
 			CASE 1:
         -- Procedimento --
       STOP;
-      DEFAULT:
+      DFLT:
 			   -- Procedimento --
 	    STOP;
 		}
@@ -466,60 +466,74 @@ MORCELA {
 
 ```
 
-## Especificação formal (EBNF);
+## EBNF
+
 ```
 <MORCELA> -> ‘MORCELA {' <SECTION> '}'
+
 <SECTION> ->   [<VAR>] <BODY>
-<VAR> -> ‘VAR {' <VARSECTION> '}'
-<BODY> -> ‘BODY {' <BODYSECTION> '}'
 
-<VARSECTION> -> ( <TYPEVAR> : <NAMEVAR> ’;’
-                  | <DECLARATIONSTRING> )  [<VARSECTION>]
+<VAR> -> ‘VAR {' <VAR_SECTION> '}'
 
-<TYPEVAR> -> (‘BOOLEAN’ | ‘DOUBLE’)
-<NAMEVAR> -> <EXPRESSIONNAMES> [,  <NAMEVAR>]
-<DECLARATIONSTRING> -> ‘STRING: ’ <NAMESTRING> <VARSECTION>
-<NAMESTRING> -> ‘[‘ [0-9]⁺ ‘]’ [,  <NAMESTRING>] ‘;’
+<BODY> -> ‘BODY {' <BODY_SECTION> '}'
 
-<BODYSECTION> -> '{' <COMUMSECTION> '}'
+<VAR_SECTION> -> ( <VAR_TYPE> : <EXPRESSION_NAME> | <STRING_DECLARATION> ) ';'  [<VAR_SECTION>]
 
-<OPERATORLOGICAL> -> ( <OPERATING> ‘&&’ <OPERATING>
-                      │ <OPERATING> ‘II’ <OPERATING>
-                      │ <OPERATING> ‘^’ <OPERATING>
-                      │ ‘!’ <OPERATING> )
+<VAR_TYPE> -> (‘BOOLEAN’ | ‘DOUBLE’)
 
-<OPERATORARITHMETIC> -> ( <OPERATING> ‘+’ <OPERATING>
-                          │ <OPERATING> ‘-’ <OPERATING>
-                          │ <OPERATING> ‘*’ <OPERATING>
-                          │ <OPERATING> ‘/’ <OPERATING> )
+<EXPRESSION_NAME> -> [A-Za-z] ([A-Za-z] | _ | - | [0-9])*
 
-<OPERATORRELATION> -> 	( <OPERATING> ‘==’ <OPERATING>
-                          | <OPERATING> ‘>’ <OPERATING>
-                          │<OPERATING> ‘<’ <OPERATING>
-                          │<OPERATING> ‘>=’ <OPERATING>
-                          │<OPERATING> ‘<=’ <OPERATING>
-                          | <OPERATING> ‘!=’ <OPERATING> )
+<STRING_DECLARATION> -> ‘STRING: ’ <EXPRESSION_NAME> <STRING_SIZE>
 
-<OPERATORATTRIBUTION> -> <EXPRESSIONNAMES> ‘=’ <OPERATING> ‘;’
+<STRING_SIZE> -> ‘[‘ [1-9]⁺[0-9]* ‘]’
 
-<OPERATING> -> ( <EXPRESSIONNAMES> | <OPERATORRELATION>
-                  | <OPERATORARITHMETIC> | <OPERATORLOGICAL> )
+<BODY_SECTION> -> (<SWITCH_STATEMENT> | <IF_STATEMENT> | <WHILE_STATEMENT> | <DO_WHILE_STATEMENT> | <ATTRIBUTION_STATEMENT>) [ <BODY_SECTION> ]
 
-<STRUCTWHILE> -> WHILE <COMUMCONDITION> <COMUMSECTIONRESOURCE>
-<STRUCTDOWHILE> -> ‘DO’ <COMUMSECTIONRESOURCE> ‘WHILE’ <COMUMCONDITION> ‘;’
+<WHILE_STATEMENT> -> WHILE <CONDITION> '{' <BODY_SECTION> '}'
 
-<STRUCTIF> -> ‘IF’ <COMUMCONDITION> <COMUMSECTIONRESOURCE> [<STRUCTELSE>]
-<STRUCTELSE> -> ‘ELSE’ ( <STRUCTIF> | <COMUMSECTIONRESOURCE>)
+<DO_WHILE_STATEMENT> -> ‘DO’ '{' <BODY_SECTION> '}' ‘WHILE’ <CONDITION> ‘;’
 
-<STRUCTSWITCH> -> SWITCH (’ <EXPRESSIONNAMES>  ’)’ <STRUCTSECTION>
-<STRUCTCASE> -> ‘CASE’ <EXPRESSIONNAMES>’:’ <COMUMCONDITION> ‘STOP;’ [STRUCTCASE]
+<IF_STATEMENT> -> ‘IF’ <CONDITION> '{' <BODY_SECTION> '}' [<ELSE_IF_STATEMENT>] [<ELSE_STATEMENT>]
 
-<EXPRESSIONNAMES> -> [A-Za-z] ([A-Za-z] | _ | - | [0-9])*
-<COMUMSECTIONRESOURCE> -> ‘{‘ <COMUMSECTION> ‘}’
-<STRUCTSECTION> -> ‘{‘ <STRUCTCASE> <DEFAULTSWITCH>‘}’
-<DEFAULTSWITCH> -> DEFAULT: <COMUMCONDITION> STOP;’
-<COMUMCONDITION> -> ‘(’ <OPERATING> ‘)’
+<ELSE_IF_STATEMENT> -> ‘ELSE IF’ <CONDITION> '{' <BODY_SECTION> '}' [<ELSE_IF_STATEMENT>]
 
-<COMUMSECTION> -> ( <STRUCTSWITCH> | <STRUCTIF> | <STRUCTWHILE> | <STRUCTDOWHILE> | <OPERATORATTRIBUTION>
+<ELSE_STATEMENT> -> ‘ELSE’ '{' <BODY_SECTION> '}'
+
+<SWITCH_STATEMENT> -> SWITCH (’ <EXPRESSION_NAME>  ’){’  <CASE_STATEMENT> '}'
+
+<CASE_STATEMENT> -> ‘CASE’ <EXPRESSION_NAME>’:’ <BODY_SECTION> [CASE_STATEMENT] [<STOP>]
+
+<STOP> -> 'STOP;'
+
+<DIRECT_VALUE> -> <BOOLEAN_VALUE> | <DOUBLE_VALUE> | <STRING_VALUE>
+
+<BOOLEAN_VALUE> -> 'TRUE' | 'FALSE'
+
+<DOUBLE_VALUE> -> [0-9]+ [<DECIMALS>]
+
+<DECIMALS> -> '.'[0-9]+
+
+<OPERATOR> -> ( <EXPRESSION_NAME> | <RELATIONAL_STATEMENT> | <ARITHMETIC_STATEMENT> | <LOGICAL_STATEMENT> | DIRECT_VALUE )
+
+<LOGICAL_STATEMENT> -> ( <OPERATOR> ‘&&’ <OPERATOR>
+                        │ <OPERATOR> ‘II’ <OPERATOR>
+                        │ <OPERATOR> ‘^’ <OPERATOR>
+                        │ ‘!’ <OPERATOR> )
+
+<ARITHMETIC_STATEMENT> -> ( <OPERATOR> ‘+’ <OPERATOR>
+                            │ <OPERATOR> ‘-’ <OPERATOR>
+                            │ <OPERATOR> ‘*’ <OPERATOR>
+                            │ <OPERATOR> ‘/’ <OPERATOR> )
+
+<RELATIONAL_STATEMENT> -> 	( <OPERATOR> ‘==’ <OPERATOR>
+                              | <OPERATOR> ‘>’ <OPERATOR>
+                              │ <OPERATOR> ‘<’ <OPERATOR>
+                              │ <OPERATOR> ‘>=’ <OPERATOR>
+                              │ <OPERATOR> ‘<=’ <OPERATOR>
+                              | <OPERATOR> ‘!=’ <OPERATOR> )
+
+<ATTRIBUTION_STATEMENT> -> <EXPRESSION_NAMES> ‘=’ <OPERATOR> ‘;’
+
+<CONDITION> -> ‘(’ <OPERATING> ‘)’
 
 ```
