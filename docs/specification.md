@@ -139,3 +139,98 @@ Sintaxe:
 Semântica:
 
 O resultado proveniente desta operação seguirá as regras da tabela verdade do XOR
+
+##Operadores relacionais
+
+O resultado da operação lógica será do tipo boolean, armazenado num endereço temporário. Caso o operando seja uma expressão, a expressão é executada e a operação considerará o valor armazenado no endereço temporário.
+
+### Menor que (<)
+
+Sintaxe:
+
+```
+operando1 < operando2
+```
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double. A operação opera com qualquer combinação dos operandos. O resultado será true caso o operando1 for menor que o operando2, e false caso o operando1 for maior ou igual ao operando2.
+
+### Maior que (>)
+
+Sintaxe:
+```
+operando1 > operando2
+```
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double. A operação opera com qualquer combinação dos operandos. O resultado será true caso o operando1 for maior que o operando2, e false caso o operando1 for menor ou igual ao operando2.
+
+### Igual a (==)
+
+Sintaxe:
+```
+operando1 == operando2
+```
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double, boolean ou string. O resultado será true caso o operando1 igual ao operando2, e false caso forem operandos diferentes.
+
+### Diferente de (!=)
+Sintaxe:
+```
+operando1 != operando2
+```
+
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double, boolean ou string. O resultado será true caso o operando1 diferente ao operando2, e false caso forem operandos iguais.
+
+### Menor ou igual a (<=):
+Sintaxe:
+```
+operando1 <= operando2
+```
+
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double. O resultado será true caso o operando1 for menor ou igual ao operando2, e false o operando1 for maior que o operando2.
+
+### Maior ou igual a (>=):
+Sintaxe:
+```
+operando1 >= operando2
+```
+
+Semântica:
+
+É permitido apenas operar sob dois operandos de forma que devem ser do tipo double. O resultado será true caso o operando1 for maior ou igual ao operando2, e false o operando1 for menor que o operando2.
+
+## Tipo de Dados
+
+## Double
+
+O tipo double armazena valores numéricos que pertencem ao conjunto dos reais positivos e negativos, de forma que para cada variável do tipo double terá 1 bit para o sinal, 11 bits para o expoente e 52 bits para a mantissa reservados, representando valores de 10⁻³⁰⁸ a 10³⁰⁸, tendo assim 16 dígitos de precisão.
+
+A inicialização do tipo double é feita da seguinte forma:
+```
+double: nome_do_identificador;
+```
+## Boolean
+
+O tipo boolean armazena dois valores: true e false. Para representar esses valores utiliza-se 1 byte, de forma que o valor 0 (na base 2) representa false e o valor 1 representa true (na base 2).
+
+A inicialização do tipo boolean é feita da seguinte forma:
+```
+boolean: nome_do_identificador;
+```
+
+## String
+
+O tipo String armazena cadeias de caracteres. Seu armazenamento é estático, ou seja, o programador que define o tamanho da string, e em tempo de compilação o compilador alocará o tamanho em bytes informado na declaração.
+
+A inicialização do tipo string é feita da seguinte forma:
+```
+string: nome_do_identificador[n]; // n é um valor imediato que será o tamanho em bytes da string. Caso n possua casas decimais, as mesmas serão desconsideradas.
+```
+
+## Atribuição (=)
