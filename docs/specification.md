@@ -525,7 +525,7 @@ MORCELA {
 
 ## Reconhecimento Léxico
 
-![Autômato Léxico](http://revistabichos.com.br/wp-content/uploads/2017/10/petmd-cat-happy-13.jpg "Autômato Léxico")
+![Autômato Léxico](img/lexautomata.jpg "Autômato Léxico")
 
 Itens:
 
