@@ -6,10 +6,6 @@ Versão 2018
 
 *Luiz Guilherme Fonseca Rosa*
 
-## Sumário
-
-TO-DO
-
 ## Nome
 
 Lê-se ‘murcilia’, é um embutido feito de sangue e vísceras, geralmente do porco, com confecção tradicional nos sítios do estado do Rio Grande do Sul, estado esse que compreende a descendência dos criadores da linguagem.
@@ -526,3 +522,16 @@ MORCELA {
 <CONDITION> -> ‘(’ <OPERATING> ‘)’
 
 ```
+
+## Reconhecimento Léxico
+
+![Autômato Léxico](http://revistabichos.com.br/wp-content/uploads/2017/10/petmd-cat-happy-13.jpg "Autômato Léxico")
+
+Itens:
+
+- `letter`: Qualquer letra. Regex: `[A-Za-z]`.
+- `space`: Caractere de espaço (` `).
+- `digit`: Qualquer algarismo. Regex: `[0-9]`.
+- `tab/space`: Caractere de epaço ou um tab. Regex: `(\t| )`.
+- `other`: Qualquer caractere.
+- `special characters`: Caracteres especiais. Regex: `[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]`
