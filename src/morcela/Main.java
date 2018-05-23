@@ -50,7 +50,7 @@ public class Main {
             if (currentLine == null) {
                 break;
             }
-            contents.append(currentLine);
+            contents.append(currentLine + "\n");
         } while(true);
         return contents.toString();
     }
@@ -74,5 +74,6 @@ public class Main {
     private static void runLexicalAnalysis(String contents) {
         LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(contents);
         lexicalAnalyzer.run();
+        System.out.println(lexicalAnalyzer);
     }
 }

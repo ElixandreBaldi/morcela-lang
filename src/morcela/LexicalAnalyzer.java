@@ -33,7 +33,7 @@ class LexicalAnalyzer {
             } else if (charCurrent == '}') {
                 tokens.add(new Token(Token.TokenType.CLOSE_BRACES));
             } else if (charCurrent == '"') {
-                tokens.add(new Token(Token.TokenType.QUOTE));
+                i = lookAheadQuote(i);
             } else if (charCurrent == '(') {
                 tokens.add(new Token(Token.TokenType.OPEN_PAR));
             } else if (charCurrent == ')') {
@@ -51,15 +51,58 @@ class LexicalAnalyzer {
             } else if (charCurrent == '!') {
                 i = lookAheadExclamation(i);
             } else if (charCurrent == '>') {
-                //TODO
+                i = lookAheadBigger(i);
             } else if (charCurrent == '<') {
-                //TODO
+                i = lookAheadLess(i);
             } else if (charCurrent == '+') {
-                //TODO
+                i = lookAheadPlus(i);
             } else if (charCurrent == '-') {
-                //TODO
+                i = lookAheadMinus(i);
+            } else if (Character.isDigit(charCurrent)) {
+                i = lookAheadDigit(i);
+            } else if (Character.isSpaceChar(charCurrent)) {
+                continue;
+            } else {
+                errors.add(new LexicalError("Unexpected char " + charCurrent));
             }
         }
+    }
+
+    private int lookAheadDigit(int initialTokenPos) {
+        StringBuilder number = new StringBuilder();
+        int i = initialTokenPos;
+        do {
+            if (i == content.length()) break;
+            char next = content.charAt(i);
+            if (Character.isDigit(next) || next == '.') {
+                number.append(next);
+            } else {
+                i--;
+                break;
+            }
+            i++;
+        } while (true);
+        tokens.add(new Token(Token.TokenType.NUM, number.toString()));
+        return i;
+    }
+
+    private int lookAheadQuote(int initialTokenPos) {
+        StringBuilder stringContent = new StringBuilder();
+        int i = initialTokenPos + 1;
+        do {
+            if (i == content.length()) {
+                errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
+                return initialTokenPos;
+            }
+            char next = content.charAt(i);
+            if (next != '"') {
+                stringContent.append(next);
+            } else break;
+            i++;
+        } while (true);
+        tokens.add(new Token(Token.TokenType.STRING, stringContent.toString()));
+
+        return i;
     }
 
     private int lookAheadSlash(int initialTokenPos) {
@@ -94,7 +137,7 @@ class LexicalAnalyzer {
             return initialTokenPos + 1;
         }
 
-        errors.add(new LexicalError("Unexpected char " + next));
+        errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
         return initialTokenPos;
     }
 
@@ -116,7 +159,65 @@ class LexicalAnalyzer {
             return initialTokenPos + 1;
         }
 
-        errors.add(new LexicalError("Unexpected char " + next));
+        errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
         return initialTokenPos;
+    }
+
+    private int lookAheadBigger(int initialTokenPos) {
+        char next = content.charAt(initialTokenPos + 1);
+        if (next == '=') {
+            tokens.add(new Token(Token.TokenType.BIGGER_EQ));
+            return initialTokenPos + 1;
+        }
+
+        tokens.add(new Token(Token.TokenType.BIGGER));
+        return initialTokenPos;
+    }
+
+    private int lookAheadLess(int initialTokenPos) {
+        char next = content.charAt(initialTokenPos + 1);
+        if (next == '=') {
+            tokens.add(new Token(Token.TokenType.LESS_EQ));
+            return initialTokenPos + 1;
+        }
+
+        tokens.add(new Token(Token.TokenType.LESS));
+        return initialTokenPos;
+    }
+
+    private int lookAheadPlus(int initialTokenPos) {
+        char next = content.charAt(initialTokenPos + 1);
+        if (next == '+') {
+            tokens.add(new Token(Token.TokenType.INC));
+            return initialTokenPos + 1;
+        }
+
+        tokens.add(new Token(Token.TokenType.SUM));
+        return initialTokenPos;
+    }
+
+    private int lookAheadMinus(int initialTokenPos) {
+        char next = content.charAt(initialTokenPos + 1);
+        if (next == '-') {
+            tokens.add(new Token(Token.TokenType.DEC));
+            return initialTokenPos + 1;
+        }
+
+        tokens.add(new Token(Token.TokenType.SUB));
+        return initialTokenPos;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (LexicalError error : errors) {
+            result.append(error);
+            result.append("\n");
+        }
+        for (Token token : tokens) {
+            result.append(token);
+            result.append("\n");
+        }
+        return result.toString();
     }
 }
