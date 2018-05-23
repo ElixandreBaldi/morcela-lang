@@ -1,9 +1,6 @@
 package morcela;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 
 public class Main {
     private static int ARGS_COUNT = 1;
@@ -18,16 +15,21 @@ public class Main {
             System.exit(1);
         }
 
-        BufferedReader bf = null;
+        String contents = null;
         try {
-            bf = openArgumentFile(args[ARG_INPUT_FILE]);
+            contents = openArgumentFile(args[ARG_INPUT_FILE]);
         } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
 
         printAsciiWelcome();
-        runLexicalAnalysis(bf);
+
+        runLexicalAnalysis(contents);
+
 
         System.exit(0);
     }
@@ -38,10 +40,19 @@ public class Main {
         }
     }
 
-    private static BufferedReader openArgumentFile(String filename) throws FileNotFoundException {
+    private static String openArgumentFile(String filename) throws IOException {
         File file = new File(filename);
         FileReader fr = new FileReader(file);
-        return new BufferedReader(fr);
+        BufferedReader bf = new BufferedReader(fr);
+        StringBuilder contents = new StringBuilder();
+        do{
+            String currentLine = bf.readLine();
+            if (currentLine == null) {
+                break;
+            }
+            contents.append(currentLine);
+        } while(true);
+        return contents.toString();
     }
 
     private static void printAsciiWelcome() {
@@ -60,8 +71,8 @@ public class Main {
         System.out.println("Morcela Lang 0.1");
     }
 
-    private static void runLexicalAnalysis(BufferedReader bf) {
-        LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(bf);
+    private static void runLexicalAnalysis(String contents) {
+        LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(contents);
         lexicalAnalyzer.run();
     }
 }
