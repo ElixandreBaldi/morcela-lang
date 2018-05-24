@@ -16,59 +16,65 @@ class LexicalAnalyzer {
     }
 
     void run() {
+        char currentLine = 1;
+        char currentColumn = 0;
         for (int i = 0; i < content.length(); i++) {
-            char charCurrent = content.charAt(i);
-            if (charCurrent == '*') {
-                tokens.add(new Token(Token.TokenType.MULT));
-            } else if (charCurrent == ',') {
-                tokens.add(new Token(Token.TokenType.COMMA));
-            } else if (charCurrent == '/') {
-                i = lookAheadSlash(i);
-            } else if (charCurrent == '^') {
-                tokens.add(new Token(Token.TokenType.XOR));
-            } else if (charCurrent == '|') {
-                i = lookAheadPipe(i);
-            } else if (charCurrent == '{') {
-                tokens.add(new Token(Token.TokenType.OPEN_BRACES));
-            } else if (charCurrent == '}') {
-                tokens.add(new Token(Token.TokenType.CLOSE_BRACES));
-            } else if (charCurrent == '"') {
-                i = lookAheadQuote(i);
-            } else if (charCurrent == '(') {
-                tokens.add(new Token(Token.TokenType.OPEN_PAR));
-            } else if (charCurrent == ')') {
-                tokens.add(new Token(Token.TokenType.CLOSE_PAR));
-            } else if (charCurrent == '[') {
-                tokens.add(new Token(Token.TokenType.OPEN_SIZE_STRING));
-            } else if (charCurrent == ']') {
-                tokens.add(new Token(Token.TokenType.CLOSE_SIZE_STRING));
-            } else if (charCurrent == ':') {
-                tokens.add(new Token(Token.TokenType.DOUBLE_DOT));
-            } else if (charCurrent == ';') {
-                tokens.add(new Token(Token.TokenType.SEMICOLON));
-            } else if (charCurrent == '=') {
-                i = lookAheadEqual(i);
-            } else if (charCurrent == '!') {
-                i = lookAheadExclamation(i);
-            } else if (charCurrent == '>') {
-                i = lookAheadBigger(i);
-            } else if (charCurrent == '<') {
-                i = lookAheadLess(i);
-            } else if (charCurrent == '+') {
-                i = lookAheadPlus(i);
-            } else if (charCurrent == '-') {
-                i = lookAheadMinus(i);
-            } else if (Character.isDigit(charCurrent)) {
-                i = lookAheadDigit(i);
-            } else if (Character.isSpaceChar(charCurrent)) {
+            currentColumn++;
+            char currentCharacter = content.charAt(i);
+            if (currentCharacter == '*') {
+                tokens.add(new Token(Token.TokenType.MULT, currentLine, currentColumn));
+            } else if (currentCharacter == ',') {
+                tokens.add(new Token(Token.TokenType.COMMA, currentLine, currentColumn));
+            } else if (currentCharacter == '/') {
+                i = lookAheadSlash(currentLine, currentColumn, i);
+            } else if (currentCharacter == '^') {
+                tokens.add(new Token(Token.TokenType.XOR, currentLine, currentColumn));
+            } else if (currentCharacter == '|') {
+                i = lookAheadPipe(currentLine, currentColumn, i);
+            } else if (currentCharacter == '{') {
+                tokens.add(new Token(Token.TokenType.OPEN_BRACES, currentLine, currentColumn));
+            } else if (currentCharacter == '}') {
+                tokens.add(new Token(Token.TokenType.CLOSE_BRACES, currentLine, currentColumn));
+            } else if (currentCharacter == '"') {
+                i = lookAheadQuote(currentLine, currentColumn, i);
+            } else if (currentCharacter == '(') {
+                tokens.add(new Token(Token.TokenType.OPEN_PAR, currentLine, currentColumn));
+            } else if (currentCharacter == ')') {
+                tokens.add(new Token(Token.TokenType.CLOSE_PAR, currentLine, currentColumn));
+            } else if (currentCharacter == '[') {
+                tokens.add(new Token(Token.TokenType.OPEN_SIZE_STRING, currentLine, currentColumn));
+            } else if (currentCharacter == ']') {
+                tokens.add(new Token(Token.TokenType.CLOSE_SIZE_STRING, currentLine, currentColumn));
+            } else if (currentCharacter == ':') {
+                tokens.add(new Token(Token.TokenType.DOUBLE_DOT, currentLine, currentColumn));
+            } else if (currentCharacter == ';') {
+                tokens.add(new Token(Token.TokenType.SEMICOLON, currentLine, currentColumn));
+            } else if (currentCharacter == '=') {
+                i = lookAheadEqual(currentLine, currentColumn, i);
+            } else if (currentCharacter == '!') {
+                i = lookAheadExclamation(currentLine, currentColumn, i);
+            } else if (currentCharacter == '>') {
+                i = lookAheadBigger(currentLine, currentColumn, i);
+            } else if (currentCharacter == '<') {
+                i = lookAheadLess(currentLine, currentColumn, i);
+            } else if (currentCharacter == '+') {
+                i = lookAheadPlus(currentLine, currentColumn, i);
+            } else if (currentCharacter == '-') {
+                i = lookAheadMinus(currentLine, currentColumn, i);
+            } else if (Character.isDigit(currentCharacter)) {
+                i = lookAheadDigit(currentLine, currentColumn, i);
+            } else if (currentCharacter == '\n') {
+                currentLine++;
+                currentColumn = 0;
+            } else if (Character.isSpaceChar(currentCharacter)) {
                 continue;
             } else {
-                errors.add(new LexicalError("Unexpected char " + charCurrent));
+                errors.add(new LexicalError(currentLine, currentColumn, String.valueOf(currentCharacter)));
             }
         }
     }
 
-    private int lookAheadDigit(int initialTokenPos) {
+    private int lookAheadDigit(int line, int column, int initialTokenPos) {
         StringBuilder number = new StringBuilder();
         int i = initialTokenPos;
         do {
@@ -82,16 +88,16 @@ class LexicalAnalyzer {
             }
             i++;
         } while (true);
-        tokens.add(new Token(Token.TokenType.NUM, number.toString()));
+        tokens.add(new Token(Token.TokenType.NUM, line, column, number.toString()));
         return i;
     }
 
-    private int lookAheadQuote(int initialTokenPos) {
+    private int lookAheadQuote(int line, int column, int initialTokenPos) {
         StringBuilder stringContent = new StringBuilder();
         int i = initialTokenPos + 1;
         do {
             if (i == content.length()) {
-                errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
+                errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
                 return initialTokenPos;
             }
             char next = content.charAt(i);
@@ -100,22 +106,22 @@ class LexicalAnalyzer {
             } else break;
             i++;
         } while (true);
-        tokens.add(new Token(Token.TokenType.STRING, stringContent.toString()));
+        tokens.add(new Token(Token.TokenType.STRING, line, column, stringContent.toString()));
 
         return i;
     }
 
-    private int lookAheadSlash(int initialTokenPos) {
+    private int lookAheadSlash(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '/') {
-            return addComment(initialTokenPos + 2);
+            return addComment(line, column, initialTokenPos + 2);
         }
 
-        tokens.add(new Token(Token.TokenType.DIV));
+        tokens.add(new Token(Token.TokenType.DIV, line, column));
         return initialTokenPos;
     }
 
-    private int addComment(final int initialCommentPos) {
+    private int addComment(int line, int column, final int initialCommentPos) {
         StringBuilder commentContent;
         commentContent = new StringBuilder();
         int i = initialCommentPos;
@@ -126,84 +132,84 @@ class LexicalAnalyzer {
             commentContent.append(next);
             i++;
         } while (true);
-        tokens.add(new Token(Token.TokenType.COMMENT, commentContent.toString()));
+        tokens.add(new Token(Token.TokenType.COMMENT, line, column, commentContent.toString()));
         return i;
     }
 
-    private int lookAheadPipe(int initialTokenPos) {
+    private int lookAheadPipe(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '|') {
-            tokens.add(new Token(Token.TokenType.OR));
+            tokens.add(new Token(Token.TokenType.OR, line, column));
             return initialTokenPos + 1;
         }
 
-        errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
+        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
         return initialTokenPos;
     }
 
-    private int lookAheadEqual(int initialTokenPos) {
+    private int lookAheadEqual(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '=') {
-            tokens.add(new Token(Token.TokenType.EQ));
+            tokens.add(new Token(Token.TokenType.EQ, line, column));
             return initialTokenPos + 1;
         }
 
-        tokens.add(new Token(Token.TokenType.ATT));
+        tokens.add(new Token(Token.TokenType.ATT, line, column));
         return initialTokenPos;
     }
 
-    private int lookAheadExclamation(int initialTokenPos) {
+    private int lookAheadExclamation(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '=') {
-            tokens.add(new Token(Token.TokenType.DIF));
+            tokens.add(new Token(Token.TokenType.DIF, line, column));
             return initialTokenPos + 1;
         }
 
-        errors.add(new LexicalError("Unexpected char " + content.charAt(initialTokenPos)));
+        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
         return initialTokenPos;
     }
 
-    private int lookAheadBigger(int initialTokenPos) {
+    private int lookAheadBigger(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '=') {
-            tokens.add(new Token(Token.TokenType.BIGGER_EQ));
+            tokens.add(new Token(Token.TokenType.BIGGER_EQ, line, column));
             return initialTokenPos + 1;
         }
 
-        tokens.add(new Token(Token.TokenType.BIGGER));
+        tokens.add(new Token(Token.TokenType.BIGGER, line, column));
         return initialTokenPos;
     }
 
-    private int lookAheadLess(int initialTokenPos) {
+    private int lookAheadLess(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '=') {
-            tokens.add(new Token(Token.TokenType.LESS_EQ));
+            tokens.add(new Token(Token.TokenType.LESS_EQ, line, column));
             return initialTokenPos + 1;
         }
 
-        tokens.add(new Token(Token.TokenType.LESS));
+        tokens.add(new Token(Token.TokenType.LESS, line, column));
         return initialTokenPos;
     }
 
-    private int lookAheadPlus(int initialTokenPos) {
+    private int lookAheadPlus(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '+') {
-            tokens.add(new Token(Token.TokenType.INC));
+            tokens.add(new Token(Token.TokenType.INC, line, column));
             return initialTokenPos + 1;
         }
 
-        tokens.add(new Token(Token.TokenType.SUM));
+        tokens.add(new Token(Token.TokenType.SUM, line, column));
         return initialTokenPos;
     }
 
-    private int lookAheadMinus(int initialTokenPos) {
+    private int lookAheadMinus(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '-') {
-            tokens.add(new Token(Token.TokenType.DEC));
+            tokens.add(new Token(Token.TokenType.DEC, line, column));
             return initialTokenPos + 1;
         }
 
-        tokens.add(new Token(Token.TokenType.SUB));
+        tokens.add(new Token(Token.TokenType.SUB, line, column));
         return initialTokenPos;
     }
 
