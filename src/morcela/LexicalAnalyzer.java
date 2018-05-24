@@ -72,8 +72,8 @@ class LexicalAnalyzer {
             } else if (currentCharacter == '\n') {
                 currentLine++;
                 currentColumn = -1;
-            } else if (Character.isSpaceChar(currentCharacter)) {
-                // do nothing
+            } else if (Character.isSpaceChar(currentCharacter) || currentCharacter == '\t') {
+                // nothing
             } else {
                 errors.add(new LexicalError(currentLine, currentColumn, String.valueOf(currentCharacter)));
             }
@@ -98,7 +98,7 @@ class LexicalAnalyzer {
         return i - initialTokenPos;
     }
 
-    private void insertIdOrReserved (String el, int line, int column) {
+    private void insertIdOrReserved(String el, int line, int column) {
         switch (el) {
             case "IF":
                 tokens.add(new Token(Token.TokenType.IF, line, column));
