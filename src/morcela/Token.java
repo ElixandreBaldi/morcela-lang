@@ -29,6 +29,6 @@ class Token {
 
     @Override
     public String toString() {
-        return "<" + type + ", " + content + "," + line + "," + column + ">";
+        return "<" + type + ", " + content + "," + line + ":" + column + ">";
     }
 }
