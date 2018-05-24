@@ -33,6 +33,8 @@ class LexicalAnalyzer {
                 tokens.add(new Token(Token.TokenType.XOR, currentLine, currentColumn));
             } else if (currentCharacter == '|') {
                 ignoreNext = lookAheadPipe(currentLine, currentColumn, i);
+            } else if (currentCharacter == '&') {
+                ignoreNext = lookAheadAnd(currentLine, currentColumn, i);
             } else if (currentCharacter == '{') {
                 tokens.add(new Token(Token.TokenType.OPEN_BRACES, currentLine, currentColumn));
             } else if (currentCharacter == '}') {
@@ -65,6 +67,8 @@ class LexicalAnalyzer {
                 ignoreNext = lookAheadMinus(currentLine, currentColumn, i);
             } else if (Character.isDigit(currentCharacter)) {
                 ignoreNext = lookAheadDigit(currentLine, currentColumn, i);
+            } else if (Character.isLetter(currentCharacter)) {
+                ignoreNext = lookAheadLetter(currentLine, currentColumn, i);
             } else if (currentCharacter == '\n') {
                 currentLine++;
                 currentColumn = -1;
@@ -74,6 +78,85 @@ class LexicalAnalyzer {
                 errors.add(new LexicalError(currentLine, currentColumn, String.valueOf(currentCharacter)));
             }
             currentColumn++;
+        }
+    }
+
+    private int lookAheadLetter(int line, int column, int initialTokenPos) {
+        StringBuilder text = new StringBuilder();
+        int i = initialTokenPos;
+        StringBuilder elBuilder = new StringBuilder();
+        do {
+            char next = content.charAt(i);
+            if (!Character.isLetter(next) && !Character.isDigit(next) && next != '_') {
+                i--;
+                break;
+            }
+            elBuilder.append(next);
+            i++;
+        } while (true);
+        insertIdOrReserved(elBuilder.toString(), line, column);
+        return i - initialTokenPos;
+    }
+
+    private void insertIdOrReserved (String el, int line, int column) {
+        switch (el) {
+            case "IF":
+                tokens.add(new Token(Token.TokenType.IF, line, column));
+                break;
+            case "ELSE":
+                tokens.add(new Token(Token.TokenType.ELSE, line, column));
+                break;
+            case "DO":
+                tokens.add(new Token(Token.TokenType.DO, line, column));
+                break;
+            case "WHILE":
+                tokens.add(new Token(Token.TokenType.WHILE, line, column));
+                break;
+            case "SWITCH":
+                tokens.add(new Token(Token.TokenType.SWITCH, line, column));
+                break;
+            case "CASE":
+                tokens.add(new Token(Token.TokenType.CASE, line, column));
+                break;
+            case "VAR":
+                tokens.add(new Token(Token.TokenType.VAR, line, column));
+                break;
+            case "MORCELA":
+                tokens.add(new Token(Token.TokenType.MORCELA, line, column));
+                break;
+            case "BODY":
+                tokens.add(new Token(Token.TokenType.BODY, line, column));
+                break;
+            case "STOP":
+                tokens.add(new Token(Token.TokenType.STOP, line, column));
+                break;
+            case "PRINT":
+                tokens.add(new Token(Token.TokenType.PRINT, line, column));
+                break;
+            case "SCAN":
+                tokens.add(new Token(Token.TokenType.SCAN, line, column));
+                break;
+            case "DOUBLE":
+                tokens.add(new Token(Token.TokenType.DOUBLE, line, column));
+                break;
+            case "STRING":
+                tokens.add(new Token(Token.TokenType.STRING, line, column));
+                break;
+            case "BOOLEAN":
+                tokens.add(new Token(Token.TokenType.BOOLEAN, line, column));
+                break;
+            case "TRUE":
+                tokens.add(new Token(Token.TokenType.TRUE, line, column));
+                break;
+            case "FALSE":
+                tokens.add(new Token(Token.TokenType.FALSE, line, column));
+                break;
+            case "DFLT":
+                tokens.add(new Token(Token.TokenType.DFLT, line, column));
+                break;
+            default:
+                tokens.add(new Token(Token.TokenType.ID, line, column, el));
+                break;
         }
     }
 
@@ -150,6 +233,17 @@ class LexicalAnalyzer {
         return 0;
     }
 
+    private int lookAheadAnd(int line, int column, int initialTokenPos) {
+        char next = content.charAt(initialTokenPos + 1);
+        if (next == '&') {
+            tokens.add(new Token(Token.TokenType.AND, line, column));
+            return 1;
+        }
+
+        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
+        return 0;
+    }
+
     private int lookAheadEqual(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '=') {
@@ -168,7 +262,7 @@ class LexicalAnalyzer {
             return 1;
         }
 
-        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
+        tokens.add(new Token(Token.TokenType.NOT, line, column));
         return 0;
     }
 
