@@ -1,7 +1,7 @@
 package morcela;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 class LexicalAnalyzer {
     private String content;
@@ -9,6 +9,8 @@ class LexicalAnalyzer {
     private ArrayList<Token> tokens;
 
     private ArrayList<LexicalError> errors;
+
+    private Pattern letterPattern = Pattern.compile("[A-Za-z]+");
 
     LexicalAnalyzer(String content) {
         this.content = content;
@@ -68,7 +70,7 @@ class LexicalAnalyzer {
                 ignoreNext = lookAheadMinus(currentLine, currentColumn, i);
             } else if (Character.isDigit(currentCharacter)) {
                 ignoreNext = lookAheadDigit(currentLine, currentColumn, i);
-            } else if (Character.isLetter(currentCharacter)) {
+            } else if (letterPattern.matcher(String.valueOf(currentCharacter)).matches()) {
                 ignoreNext = lookAheadLetter(currentLine, currentColumn, i);
             } else if (currentCharacter == '\n') {
                 currentLine++;
@@ -88,7 +90,7 @@ class LexicalAnalyzer {
         StringBuilder elBuilder = new StringBuilder();
         do {
             char next = content.charAt(i);
-            if (!Character.isLetter(next) && !Character.isDigit(next) && next != '_') {
+            if (!letterPattern.matcher(String.valueOf(next)).matches() && !Character.isDigit(next) && next != '_') {
                 i--;
                 break;
             }
