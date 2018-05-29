@@ -1,5 +1,6 @@
 package morcela;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class LexicalAnalyzer {
@@ -310,17 +311,11 @@ class LexicalAnalyzer {
         return 0;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (LexicalError error : errors) {
-            result.append(error);
-            result.append("\n");
-        }
-        for (Token token : tokens) {
-            result.append(token);
-            result.append("\n");
-        }
-        return result.toString();
+    LexicalError[] getErrors() {
+        return errors.toArray(new LexicalError[0]);
+    }
+
+    Token[] getIdentifiedTokens() {
+        return tokens.toArray(new Token[0]);
     }
 }

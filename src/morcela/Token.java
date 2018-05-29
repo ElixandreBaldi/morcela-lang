@@ -1,6 +1,8 @@
 package morcela;
 
 class Token {
+    private static int MAX_CONTENT_LEN = 40;
+
     private TokenType type;
 
     private String content;
@@ -30,5 +32,16 @@ class Token {
     @Override
     public String toString() {
         return "<" + type + ", " + content + "," + line + ":" + column + ">";
+    }
+
+    Object[] toRow() {
+        StringBuilder contentStringBuilder = new StringBuilder(MAX_CONTENT_LEN);
+        if (content.length() <= MAX_CONTENT_LEN) {
+            contentStringBuilder.append(content);
+        } else {
+            String actualContent = content.substring(0, MAX_CONTENT_LEN - 3) + "...";
+            contentStringBuilder.append(actualContent);
+        }
+        return new String[]{type.toString(), contentStringBuilder.toString(), String.valueOf(line), String.valueOf(column)};
     }
 }

@@ -16,20 +16,16 @@ public class Main {
         }
 
         String contents = null;
+
         try {
             contents = openArgumentFile(args[ARG_INPUT_FILE]);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
 
         printAsciiWelcome();
-
         runLexicalAnalysis(contents);
-
 
         System.exit(0);
     }
@@ -45,13 +41,13 @@ public class Main {
         FileReader fr = new FileReader(file);
         BufferedReader bf = new BufferedReader(fr);
         StringBuilder contents = new StringBuilder();
-        do{
+        do {
             String currentLine = bf.readLine();
             if (currentLine == null) {
                 break;
             }
             contents.append(currentLine + "\n");
-        } while(true);
+        } while (true);
         return contents.toString();
     }
 
@@ -73,7 +69,22 @@ public class Main {
 
     private static void runLexicalAnalysis(String contents) {
         LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(contents);
+        System.out.println("Performing lexical analysis...");
         lexicalAnalyzer.run();
-        System.out.println(lexicalAnalyzer);
+        printErrors(lexicalAnalyzer.getErrors());
+        printIdentifiedTokens(lexicalAnalyzer.getIdentifiedTokens());
+    }
+
+    private static void printErrors(LexicalError[] errors) {
+        for (LexicalError error : errors) {
+            System.err.println(error);
+        }
+    }
+
+    private static void printIdentifiedTokens(Token[] tokens) {
+        System.out.format("\n%15s%45s%8s%8s\n\n", "TYPE", "CONTENT", "LINE", "COLUMN");
+        for (Token token : tokens) {
+            System.out.format("%15s%45s%8s%8s\n", token.toRow());
+        }
     }
 }
