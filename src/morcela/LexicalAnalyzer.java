@@ -85,7 +85,6 @@ class LexicalAnalyzer {
     }
 
     private int lookAheadLetter(int line, int column, int initialTokenPos) {
-        StringBuilder text = new StringBuilder();
         int i = initialTokenPos;
         StringBuilder elBuilder = new StringBuilder();
         do {
