@@ -20,11 +20,11 @@ class LexicalAnalyzer {
 
     void run() {
         int currentLine = 1;
-        int currentColumn = 0;
+        int currentColumn = 1;
         int ignoreNext = 0;
         for (int i = 0; i < content.length(); i++) {
             char currentCharacter = content.charAt(i);
-            if (ignoreNext > 0) {
+            if (ignoreNext > 0) {                
                 ignoreNext--;
             } else if (currentCharacter == '*') {
                 tokens.add(new Token(Token.TokenType.MULT, currentLine, currentColumn));
@@ -74,7 +74,7 @@ class LexicalAnalyzer {
                 ignoreNext = lookAheadLetter(currentLine, currentColumn, i);
             } else if (currentCharacter == '\n') {
                 currentLine++;
-                currentColumn = -1;
+                currentColumn = 0;
             } else if (Character.isSpaceChar(currentCharacter) || currentCharacter == '\t') {
                 // nothing
             } else {
@@ -216,7 +216,10 @@ class LexicalAnalyzer {
         do {
             if (i == content.length()) break;
             char next = content.charAt(i);
-            if (next == '\n') break;
+            if (next == '\n') {
+                i--;
+                break;
+            }
             commentContent.append(next);
             i++;
         } while (true);
@@ -320,3 +323,4 @@ class LexicalAnalyzer {
         return tokens.toArray(new Token[0]);
     }
 }
+
