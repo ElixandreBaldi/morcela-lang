@@ -533,8 +533,8 @@ MORCELA {
 ### Follow
 
 ```
-<PROGRAM> -> 
-<SECTION> -> 
+<PROGRAM> -> {$}
+<SECTION> -> {close_braces}
 <VAR_SECTION> -> 
 <BODY_SECTION> -> 
 <VAR_DECLARATION> -> 
