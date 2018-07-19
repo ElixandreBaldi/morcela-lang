@@ -473,8 +473,6 @@ MORCELA {
 <VAR_TYPE> -> boolean | double | string
 <SIZE_DECLARATION> -> open_size_string number close_size_string | ε
 <BODY_STATEMENT> -> <SWITCH_STATEMENT> <BODY_STATEMENT> | <IF_STATEMENT> <BODY_STATEMENT> | <WHILE_STATEMENT> <BODY_STATEMENT> | <DO_WHILE_STATEMENT> <BODY_STATEMENT> | <ATTRIBUTION_STATEMENT> <BODY_STATEMENT> | <STOP_STATEMENT> <BODY_STATEMENT> | <PRINT_STATEMENT> <BODY_STATEMENT> | <SCAN_STATEMENT> <BODY_STATEMENT> | ε
-
-
 <WHILE_STATEMENT> -> while <CONDITION> open_braces <BODY_STATEMENT> close_braces
 <STOP_STATEMENT> -> stop semicolon
 <CONDITION> -> open_par <OPERATOR_BOOLEAN> close_par
@@ -483,15 +481,15 @@ MORCELA {
 <ELSE_IF_STATEMENT> -> else if <CONDITION> open_braces <BODY_STATEMENT> close_braces <ELSE_IF_STATEMENT> | ε
 <ELSE_STATEMENT> -> else open_braces <BODY_STATEMENT> close_braces | ε
 <SWITCH_STATEMENT> -> switch open_braces id close_par open_braces <CASE_STATEMENT> close_braces
-<CASE_STATEMENT> -> case id double_dot <BODY STATEMENT> <CASE_STATEMENT> | dflt double_dot <BODY_STATEMENT> |  ε
-<PRINT_STATEMENT> -> print open_par string_value close_par
+<CASE_STATEMENT> -> case id double_dot <BODY STATEMENT> <CASE_STATEMENT> | dflt double_dot <BODY_STATEMENT> |  ε 
+<PRINT_STATEMENT> -> print open_par string_value close_par 
 <SCAN_STATEMENT> -> scan open_par id close_par
-<OPERATOR> -> <RELATIONAL_STATEMENT> | <LOGICAL_STATEMENT> | <OPERATOR_ARITHMETIC> | id {id, not, }
+<OPERATOR> -> <RELATIONAL_STATEMENT> | <LOGICAL_STATEMENT> | <OPERATOR_ARITHMETIC> | id 
 <OPERATOR_BOOLEAN> -> <RELATIONAL_STATEMENT> | <LOGICAL_STATEMENT> | id
 <LOGICAL_STATEMENT> -> <OPERATOR_BOOLEAN> <LOGICAL_STATEMENT'> │ not <OPERATOR_BOOLEAN> 
-<LOGICAL_STATEMENT'> -> and <OPERATOR_BOOLEAN> │ or <OPERATOR_BOOLEAN> │ xor <OPERATOR_BOOLEAN>
+<LOGICAL_STATEMENT'> -> and <OPERATOR_BOOLEAN> │ or <OPERATOR_BOOLEAN> │ xor <OPERATOR_BOOLEAN> 
 <RELATIONAL_STATEMENT> -> <OPERATOR> <RELATIONAL_STATEMENT'>
-<RELATIONAL_STATEMENT'> -> equal <OPERATOR> | bigger <OPERATOR> │ less <OPERATOR> │ bigger_eq <OPERATOR> │ less_eq <OPERATOR> | dif <OPERATOR>
+<RELATIONAL_STATEMENT'> -> equal <OPERATOR> | bigger <OPERATOR> │ less <OPERATOR> │ bigger_eq <OPERATOR> │ less_eq <OPERATOR> | dif <OPERATOR> 
 <OPERATOR_ARITHMETIC> -> <ARITHMETIC_STATEMENT> | id | number
 <ARITHMETIC_STATEMENT> -> <OPERATOR_ARITHMETIC> <ARITHMETIC_STATEMENT'> | id
 <ARITHMETIC_STATEMENT'> -> sum <OPERATOR_ARITHMETIC> │ sub <OPERATOR_ARITHMETIC> │ mult <OPERATOR_ARITHMETIC> │ div <OPERATOR_ARITHMETIC>
@@ -508,23 +506,23 @@ MORCELA {
 <VAR_DECLARATION> -> {boolean, double, string, ε}
 <VAR_TYPE> -> {boolean, double, string}
 <SIZE_DECLARATION> -> {open_size_string, ε}
-<BODY_STATEMENT> -> 
-<WHILE_STATEMENT> -> 
-<STOP_STATEMENT> -> 
-<CONDITION> -> 
-<DO_WHILE_STATEMENT> -> 
-<IF_STATEMENT> -> 
-<ELSE_IF_STATEMENT> -> 
-<ELSE_STATEMENT> -> 
-<SWITCH_STATEMENT> -> 
-<CASE_STATEMENT> -> 
-<PRINT_STATEMENT> -> 
-<SCAN_STATEMENT> -> 
-<OPERATOR> -> 
-<OPERATOR_BOOLEAN> -> 
-<LOGICAL_STATEMENT> -> 
-<LOGICAL_STATEMENT'> -> 
-<RELATIONAL_STATEMENT> -> 
+<BODY_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, ε}
+<WHILE_STATEMENT> -> {while}
+<STOP_STATEMENT> -> {stop}
+<CONDITION> -> {open_par}
+<DO_WHILE_STATEMENT> -> {do}
+<IF_STATEMENT> -> {if}
+<ELSE_IF_STATEMENT> -> {else, ε}
+<ELSE_STATEMENT> -> {else, ε}
+<SWITCH_STATEMENT> -> {switch}
+<CASE_STATEMENT> -> {case, dflt, ε}
+<PRINT_STATEMENT> -> {print}
+<SCAN_STATEMENT> -> {scan}
+<OPERATOR> -> {id, not, number}
+<OPERATOR_BOOLEAN> -> {id, not, number}
+<LOGICAL_STATEMENT> -> {id, not, number}
+<LOGICAL_STATEMENT'> -> {and, or, xor}
+<RELATIONAL_STATEMENT> -> {id, not, number}
 <RELATIONAL_STATEMENT'> -> {equal, bigger, less, bigger_eq, less_eq, dif}
 <OPERATOR_ARITHMETIC> -> {id, number}
 <ARITHMETIC_STATEMENT> -> {id, number}
