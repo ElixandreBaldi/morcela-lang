@@ -564,7 +564,9 @@ MORCELA {
 <ATTRIBUTION_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
 ```
 
-## PRODUÇÕES - LR
+## LR
+
+### Produções
 
 ```
 1) <PROGRAM> -> morcela open_braces <SECTION> close_braces
@@ -634,24 +636,9 @@ MORCELA {
 65) <ATTRIBUTION_STATEMENT> -> id att <OPERATOR> semicolon
 ```
 
-
-
-
-
-
-
-
+### Estados
 
 
 ## Reconhecimento Léxico
 
 ![Autômato Léxico](img/lexautomata.jpg "Autômato Léxico")
-
-Itens:
-
-- `letter`: Qualquer letra. Regex: `[A-Za-z]`.
-- `space`: Caractere de espaço (` `).
-- `digit`: Qualquer algarismo. Regex: `[0-9]`.
-- `tab/space`: Caractere de epaço ou um tab. Regex: `(\t| )`.
-- `other`: Qualquer caractere.
-- `special characters`: Caracteres especiais. Regex: `[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]`
