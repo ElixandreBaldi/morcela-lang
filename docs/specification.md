@@ -552,17 +552,15 @@ MORCELA {
 <CASE_STATEMENT> -> {close_braces}
 <PRINT_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
 <SCAN_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
-
-<OPERATOR> -> {equal, bigger, less, bigger_eq, less_eq, dif, semicolon} -> falta o follow de relational_statement'
-<OPERATOR_BOOLEAN> -> {close_par, and, or, xor, } -> falta o follow de logical_statement e logical_statement'
-<LOGICAL_STATEMENT> -> {} -> follow de operator e operator_boolean
-<LOGICAL_STATEMENT'> -> {} -> follow de logical_statement
-<RELATIONAL_STATEMENT> -> {} -> follow de operator e operator_boolean
-<RELATIONAL_STATEMENT'> -> {} -> follow de relational_statement
-<OPERATOR_ARITHMETIC> -> {id, number} -> follow de arithmetic_statement'
-<ARITHMETIC_STATEMENT> -> {} -> follow de operator_statement
-<ARITHMETIC_STATEMENT'> -> {} -> follow de arithmetic_statement
-
+<OPERATOR> -> {equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<OPERATOR_BOOLEAN> -> {close_par, and, or, xor, equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<LOGICAL_STATEMENT> -> {close_par, and, or, xor, equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<LOGICAL_STATEMENT'> -> {close_par, and, or, xor, equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<RELATIONAL_STATEMENT> -> {close_par, and, or, xor, equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<RELATIONAL_STATEMENT'> -> {close_par, and, or, xor, equal, bigger, less, bigger_eq, less_eq, dif, semicolon}
+<OPERATOR_ARITHMETIC> -> {id, number}
+<ARITHMETIC_STATEMENT> -> {id, number} 
+<ARITHMETIC_STATEMENT'> -> {id, number}
 <ATTRIBUTION_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
 ```
 
