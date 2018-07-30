@@ -569,6 +569,7 @@ MORCELA {
 ### Produções
 
 ```
+0) <PROGRAM'> -> <PROGRAM>
 1) <PROGRAM> -> morcela open_braces <SECTION> close_braces
 2) <SECTION> -> <VAR_SECTION> <BODY_SECTION>
 3) <SECTION> -> <BODY_SECTION>
@@ -637,6 +638,61 @@ MORCELA {
 ```
 
 ### Estados
+
+```
+I0:
+	<PROGRAM'> -> •<PROGRAM>
+	<PROGRAM> -> •morcela open_braces <SECTION> close_braces
+
+I1 (I0, <PROGRAM>):
+	<PROGRAM'> -> <PROGRAM>•
+
+I2 (I0, morcela):
+	<PROGRAM> -> morcela •open_braces <SECTION> close_braces
+
+I3 (I2, open_braces):
+	<PROGRAM> -> morcela open_braces •<SECTION> close_braces
+	<SECTION> -> •<VAR_SECTION> <BODY_SECTION>
+	<VAR_SECTION> -> •var open_braces <VAR_DECLARATION> close_braces
+
+I4 (I3, <SECTION>):
+	<PROGRAM> -> morcela open_braces <SECTION> •close_braces
+
+I5 (I3, <VAR_SECTION>):
+	<SECTION> -> <VAR_SECTION> •<BODY_SECTION>
+	<BODY_SECTION> -> •body open_braces <BODY_STATEMENT> close_braces
+
+I6 (I3, var):
+	<VAR_SECTION> -> var •open_braces <VAR_DECLARATION> close_braces
+
+I7 (I4, close_braces):
+	<PROGRAM> -> morcela open_braces <SECTION> close_braces•
+
+I8 (I5, <BODY_SECTION>):
+	<SECTION> -> <VAR_SECTION> <BODY_SECTION>•
+
+I9 (I5, body):
+	<BODY_SECTION> -> body •open_braces <BODY_STATEMENT> close_braces
+
+I10 (I6, open_braces): //TODO
+	<VAR_SECTION> -> var open_braces •<VAR_DECLARATION> close_braces
+	<VAR_DECLARATION> -> •<VAR_TYPE> double_dot id <SIZE_DECLARATION> semicolon <VAR_DECLARATION>
+	<VAR_TYPE> -> •boolean
+	<VAR_TYPE> -> •double
+	<VAR_TYPE> -> •string
+
+I11 (I9, open_braces):
+	<BODY_SECTION> -> body open_braces •<BODY_STATEMENT> close_braces
+	<BODY_STATEMENT> -> •<SWITCH_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<IF_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<WHILE_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<DO_WHILE_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<ATTRIBUTION_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<STOP_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<PRINT_STATEMENT> <BODY_STATEMENT>
+	<BODY_STATEMENT> -> •<SCAN_STATEMENT> <BODY_STATEMENT>
+
+```
 
 
 ## Reconhecimento Léxico
