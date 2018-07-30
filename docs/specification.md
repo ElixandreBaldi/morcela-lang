@@ -552,6 +552,7 @@ MORCELA {
 <CASE_STATEMENT> -> {close_braces}
 <PRINT_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
 <SCAN_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
+
 <OPERATOR> -> {equal, bigger, less, bigger_eq, less_eq, dif, semicolon} -> falta o follow de relational_statement'
 <OPERATOR_BOOLEAN> -> {close_par, and, or, xor, } -> falta o follow de logical_statement e logical_statement'
 <LOGICAL_STATEMENT> -> {} -> follow de operator e operator_boolean
@@ -559,9 +560,10 @@ MORCELA {
 <RELATIONAL_STATEMENT> -> {} -> follow de operator e operator_boolean
 <RELATIONAL_STATEMENT'> -> {} -> follow de relational_statement
 <OPERATOR_ARITHMETIC> -> {id, number} -> follow de arithmetic_statement'
-<ARITHMETIC_STATEMENT> -> {}
-<ARITHMETIC_STATEMENT'> -> {}
-<ATTRIBUTION_STATEMENT> -> {switch, if, while, do,id, stop, print, scan} -> falta o follow de body_statment
+<ARITHMETIC_STATEMENT> -> {} -> follow de operator_statement
+<ARITHMETIC_STATEMENT'> -> {} -> follow de arithmetic_statement
+
+<ATTRIBUTION_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
 ```
 
 
