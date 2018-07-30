@@ -466,7 +466,7 @@ MORCELA {
 
 ```
 <PROGRAM> -> morcela open_braces <SECTION> close_braces
-<SECTION> -> <VAR_SECTION> body | body
+<SECTION> -> <VAR_SECTION> <BODY_SECTION> | <BODY_SECTION>
 <VAR_SECTION> -> var open_braces <VAR_DECLARATION> close_braces
 <BODY_SECTION> -> body open_braces <BODY_STATEMENT> close_braces
 <VAR_DECLARATION> -> <VAR_TYPE> double_dot id <SIZE_DECLARATION> semicolon <VAR_DECLARATION> | ε
@@ -535,33 +535,33 @@ MORCELA {
 ```
 <PROGRAM> -> {$}
 <SECTION> -> {close_braces}
-<VAR_SECTION> -> 
-<BODY_SECTION> -> 
-<VAR_DECLARATION> -> 
-<VAR_TYPE> -> 
-<SIZE_DECLARATION> -> 
-<BODY_STATEMENT> -> 
-<WHILE_STATEMENT> -> 
-<STOP_STATEMENT> -> 
-<CONDITION> -> 
-<DO_WHILE_STATEMENT> -> 
-<IF_STATEMENT> -> 
-<ELSE_IF_STATEMENT> -> 
-<ELSE_STATEMENT> -> 
-<SWITCH_STATEMENT> -> 
-<CASE_STATEMENT> -> 
-<PRINT_STATEMENT> -> 
-<SCAN_STATEMENT> -> 
-<OPERATOR> -> 
-<OPERATOR_BOOLEAN> -> 
-<LOGICAL_STATEMENT> -> 
-<LOGICAL_STATEMENT'> -> 
-<RELATIONAL_STATEMENT> -> 
-<RELATIONAL_STATEMENT'> -> 
-<OPERATOR_ARITHMETIC> -> 
-<ARITHMETIC_STATEMENT> -> 
-<ARITHMETIC_STATEMENT'> -> 
-<ATTRIBUTION_STATEMENT> -> 
+<VAR_SECTION> -> {body}
+<BODY_SECTION> -> {body}
+<VAR_DECLARATION> -> {close_braces}
+<VAR_TYPE> -> {double_dot}
+<SIZE_DECLARATION> -> {semicolon}
+<BODY_STATEMENT> -> {close_braces}
+<WHILE_STATEMENT> -> {switch, if, while, do, id, stop, print, scan, close_braces}
+<STOP_STATEMENT> -> {switch, if, while, do, id, stop, print, scan, close_braces}
+<CONDITION> -> {open_braces, semicolon}
+<DO_WHILE_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
+<IF_STATEMENT> -> {switch, if, while, do, id, stop, print, scan, close_braces}
+<ELSE_IF_STATEMENT> -> {else, switch, if, while, do, id, stop, print, scan, close_braces}
+<ELSE_STATEMENT> -> {switch, if, while, do, id, stop, print, scan, close_braces}
+<SWITCH_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
+<CASE_STATEMENT> -> {close_braces}
+<PRINT_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
+<SCAN_STATEMENT> -> {switch, if, while, do,id, stop, print, scan, close_braces}
+<OPERATOR> -> {equal, bigger, less, bigger_eq, less_eq, dif, semicolon} -> falta o follow de relational_statement'
+<OPERATOR_BOOLEAN> -> {close_par, and, or, xor, } -> falta o follow de logical_statement e logical_statement'
+<LOGICAL_STATEMENT> -> {} -> follow de operator e operator_boolean
+<LOGICAL_STATEMENT'> -> {} -> follow de logical_statement
+<RELATIONAL_STATEMENT> -> {} -> follow de operator e operator_boolean
+<RELATIONAL_STATEMENT'> -> {} -> follow de relational_statement
+<OPERATOR_ARITHMETIC> -> {id, number} -> follow de arithmetic_statement'
+<ARITHMETIC_STATEMENT> -> {}
+<ARITHMETIC_STATEMENT'> -> {}
+<ATTRIBUTION_STATEMENT> -> {switch, if, while, do,id, stop, print, scan} -> falta o follow de body_statment
 ```
 
 
