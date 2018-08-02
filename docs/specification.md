@@ -1466,6 +1466,87 @@ I202 (I162, stop) = I31
 I203 (I162, print) = I32 
 
 I204 (I162, scan) = I33
+
+I205 (I163, <OPERATOR>):
+	<ATTRIBUTION_STATEMENT> -> id att <OPERATOR> •semicolon	
+	<RELATIONAL_STATEMENT> -> <OPERATOR> •<RELATIONAL_STATEMENT'>
+
+I206 (I163, <RELATIONAL_STATEMENT>):
+	<OPERATOR> -> <RELATIONAL_STATEMENT>•
+
+I207 (I163, <LOGICAL_STATEMENT>):
+	<OPERATOR> -> <LOGICAL_STATEMENT>•
+
+I207 (I163, <OPERATOR_ARITHMETIC>):
+	<OPERATOR> -> <OPERATOR_ARITHMETIC>•
+
+I207 (I163, id):
+	<OPERATOR> -> id•
+	<OPERATOR_ARITHMETIC> -> id•
+	<ARITHMETIC_STATEMENT> -> id•
+
+I207 (I163, <OPERATOR_BOOLEAN>) = I175
+
+I207 (I163, not) = I176
+
+I208 (I163, <ARITHMETIC_STATEMENT>) = I184
+
+I209 (I163, number) = I186
+
+I210 (I163, <OPERATOR_ARITHMETIC>) = I179
+
+I211 (I165, string_value):
+	<PRINT_STATEMENT> -> print open_par string_value •close_par
+
+I212 (I166, id):
+	<SCAN_STATEMENT> -> scan open_par id •close_par
+
+I213 (I167, <SIZE_DECLARATION>):
+	<VAR_DECLARATION> -> <VAR_TYPE> double_dot id <SIZE_DECLARATION> •semicolon <VAR_DECLARATION>
+
+I214 (I167, open_size_string):
+	<SIZE_DECLARATION> -> open_size_string •number close_size_string
+
+I215 (I168, close_par):
+	<SWITCH_STATEMENT> -> switch open_braces id close_par •open_braces <CASE_STATEMENT> close_braces
+
+I216 (I169, <BODY_STATEMENT>):
+	<IF_STATEMENT> -> if <CONDITION> open_braces <BODY_STATEMENT> •close_braces <ELSE_IF_STATEMENT> <ELSE_STATEMENT>
+
+I217 (I169, <SWITCH_STATEMENT>) = I18
+
+I218 (I169, <IF_STATEMENT>) = I19
+
+I219 (I169, <WHILE_STATEMENT>) = I20
+
+I220 (I169, <DO_WHILE_STATEMENT>) = I21
+
+I221 (I169, <ATTRIBUTION_STATEMENT>) = I22
+
+I222 (I169, <STOP_STATEMENT>) = I23
+
+I223 (I169, <PRINT_STATEMENT>) = I24
+
+I224 (I169, <SCAN_STATEMENT>) = I25
+	
+I225 (I169, switch) = I26
+
+I226 (I169, if) = I27
+
+I227 (I169, while) = I28
+
+I228 (I169, do) = I29 
+
+I229 (I169, id) = I30
+
+I230 (I169, stop) = I31
+
+I231 (I169, print) = I32 
+
+I232 (I169, scan) = I33
+
+I233 (I170, close_par):
+	<CONDITION> -> open_par <OPERATOR_BOOLEAN> close_par•
 ```
 
 
