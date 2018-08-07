@@ -1,16 +1,20 @@
 package morcela.action;
 
-import morcela.stackable.NonTerminal;
+import morcela.stackable.Production;
 import morcela.stackable.Stackable;
 
 import java.util.Stack;
 
 public class ReduceAction implements Action {
 
-    private NonTerminal nonTerminal;
+    private Production production;
 
-    public ReduceAction(NonTerminal nonTerminal) {
-        this.nonTerminal = nonTerminal;
+    public ReduceAction(Production production) {
+        this.production = production;
+    }
+
+    public ReduceAction(int production) {
+        this.production = new Production(production);
     }
 
     @Override

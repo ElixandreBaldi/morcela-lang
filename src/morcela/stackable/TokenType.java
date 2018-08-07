@@ -46,5 +46,6 @@ public enum TokenType implements Operable {
     BOOLEAN,
     TRUE,
     FALSE,
-    DFLT
+    DFLT,
+    EOF
 }
