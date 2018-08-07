@@ -1,13 +1,13 @@
 package morcela.analyzer;
 
 
-import morcela.Token;
 import morcela.error.Error;
+import morcela.stackable.Token;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class LexicalAnalyzer {
+public class LexicalAnalyzer implements Analyzer {
     private String content;
 
     private ArrayList<Token> tokens;
@@ -227,7 +227,7 @@ public class LexicalAnalyzer {
             commentContent.append(next);
             i++;
         } while (true);
-        tokens.add(new Token(Token.TokenType.COMMENT, line, column, commentContent.toString()));
+        // tokens.add(new Token(Token.TokenType.COMMENT, line, column, commentContent.toString()));
         return i - initialCommentPos;
     }
 
@@ -319,6 +319,7 @@ public class LexicalAnalyzer {
         return 0;
     }
 
+    @Override
     public Error[] getErrors() {
         return errors.toArray(new Error[0]);
     }
