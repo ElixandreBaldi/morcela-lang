@@ -10,22 +10,22 @@ import java.util.Stack;
 
 public class SyntaticAnalyzer implements Analyzer {
 
-    private Stack<Stackable> input;
+    private Stack<Token> input;
 
     private ArrayList<Error> errors;
 
-    public SyntaticAnalyzer(Stack<Stackable> input) {
+    private Boolean accept = Boolean.FALSE;
+
+    public SyntaticAnalyzer(Stack<Token> input) {
         this.input = input;
+        this.errors = new ArrayList<>();
     }
 
     public void run() {
+        Stack<Stackable> auxStack = new Stack<>();
+        auxStack.push(State.makeInitialState());
         while (!input.empty()) {
-            Stackable top = input.pop();
-            if (top instanceof Token) {
-
-            } else if (top instanceof State) {
-
-            }
+            Stackable current = input.pop();
         }
     }
 

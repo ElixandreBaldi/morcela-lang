@@ -10,10 +10,6 @@ public class Token implements Stackable {
 
     private int column;
 
-    public enum TokenType {
-        ID, MULT, COMMA, DIV, XOR, AND, OR, NUM, OPEN_PAR, CLOSE_PAR, OPEN_SIZE_STRING, CLOSE_SIZE_STRING, DOUBLE_DOT, SEMICOLON, ATT, EQ, DIF, NOT, LESS_EQ, LESS, BIGGER_EQ, BIGGER, INC, SUM, DEC, SUB, OPEN_BRACES, CLOSE_BRACES, IF, ELSE, DO, WHILE, SWITCH, CASE, VAR, MORCELA, BODY, STOP, PRINT, SCAN, STRING, DOUBLE, BOOLEAN, TRUE, FALSE, DFLT;
-    }
-
     public Token(TokenType type, int line, int column, String content) {
         this.type = type;
         this.content = content;
