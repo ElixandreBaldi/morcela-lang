@@ -481,7 +481,7 @@ MORCELA {
 <ELSE_IF_STATEMENT> -> else if <CONDITION> open_braces <BODY_STATEMENT> close_braces <ELSE_IF_STATEMENT> | ε
 <ELSE_STATEMENT> -> else open_braces <BODY_STATEMENT> close_braces | ε
 <SWITCH_STATEMENT> -> switch open_braces id close_par open_braces <CASE_STATEMENT> close_braces
-<CASE_STATEMENT> -> case id double_dot <BODY STATEMENT> <CASE_STATEMENT> | dflt double_dot <BODY_STATEMENT> |  ε 
+<CASE_STATEMENT> -> case id double_dot <BODY_STATEMENT> <CASE_STATEMENT> | dflt double_dot <BODY_STATEMENT> |  ε 
 <PRINT_STATEMENT> -> print open_par string_value close_par 
 <SCAN_STATEMENT> -> scan open_par id close_par
 <OPERATOR> -> <RELATIONAL_STATEMENT> | <LOGICAL_STATEMENT> | <OPERATOR_ARITHMETIC> | id 
