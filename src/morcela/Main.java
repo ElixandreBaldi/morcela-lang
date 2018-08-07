@@ -1,11 +1,11 @@
 package morcela;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Main {
-    private static int ARGS_COUNT = 1;
-
-    private static int ARG_INPUT_FILE = 0;
 
     public static void main(String args[]) {
         try {
@@ -18,6 +18,7 @@ public class Main {
         String contents = null;
 
         try {
+            final int ARG_INPUT_FILE = 0;
             contents = openArgumentFile(args[ARG_INPUT_FILE]);
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -25,12 +26,13 @@ public class Main {
         }
 
         printAsciiWelcome();
-        runLexicalAnalysis(contents);
+        compile(contents);
 
         System.exit(0);
     }
 
     private static void parseArguments(String args[]) throws IllegalArgumentException {
+        final int ARGS_COUNT = 1;
         if (args.length != ARGS_COUNT) {
             throw new IllegalArgumentException("Invalid arguments. Only one is expected.");
         }
@@ -46,7 +48,7 @@ public class Main {
             if (currentLine == null) {
                 break;
             }
-            contents.append(currentLine + "\n");
+            contents.append(currentLine).append("\n");
         } while (true);
         return contents.toString();
     }
@@ -67,24 +69,8 @@ public class Main {
         System.out.println("Morcela Lang 0.1");
     }
 
-    private static void runLexicalAnalysis(String contents) {
-        LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(contents);
-        System.out.println("Performing lexical analysis...");
-        lexicalAnalyzer.run();
-        printErrors(lexicalAnalyzer.getErrors());
-        printIdentifiedTokens(lexicalAnalyzer.getIdentifiedTokens());
-    }
-
-    private static void printErrors(LexicalError[] errors) {
-        for (LexicalError error : errors) {
-            System.err.println(error);
-        }
-    }
-
-    private static void printIdentifiedTokens(Token[] tokens) {
-        System.out.format("\n%15s%45s%8s%8s\n\n", "TYPE", "CONTENT", "LINE", "COLUMN");
-        for (Token token : tokens) {
-            System.out.format("%15s%45s%8s%8s\n", token.toRow());
-        }
+    private static void compile(String contents) {
+        Compiler compiler = new Compiler(contents);
+        compiler.run();
     }
 }

@@ -1,6 +1,6 @@
-package morcela;
+package morcela.error;
 
-public class LexicalError {
+public class Error {
     private String message;
 
     private int line;
@@ -9,21 +9,21 @@ public class LexicalError {
 
     private String tokenCause;
 
-    LexicalError(int line, int column, String tokenCause, String message) {
+    public Error(int line, int column, String tokenCause, String message) {
         this.line = line;
         this.column = column;
         this.message = message;
         this.tokenCause = tokenCause;
     }
 
-    LexicalError(int line, int column, String tokenCause) {
+    public Error(int line, int column, String tokenCause) {
         this.line = line;
         this.column = column;
         this.message = "Unexpected character";
         this.tokenCause = tokenCause;
     }
 
-    LexicalError(int line, int column) {
+    public Error(int line, int column) {
         this.line = line;
         this.column = column;
         this.message = "Unexpected character";

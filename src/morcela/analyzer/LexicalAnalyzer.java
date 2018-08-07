@@ -1,30 +1,34 @@
-package morcela;
+package morcela.analyzer;
+
+
+import morcela.Token;
+import morcela.error.Error;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-class LexicalAnalyzer {
+public class LexicalAnalyzer {
     private String content;
 
     private ArrayList<Token> tokens;
 
-    private ArrayList<LexicalError> errors;
+    private ArrayList<Error> errors;
 
     private Pattern letterPattern = Pattern.compile("[A-Za-z]+");
 
-    LexicalAnalyzer(String content) {
+    public LexicalAnalyzer(String content) {
         this.content = content;
         this.tokens = new ArrayList<>();
         this.errors = new ArrayList<>();
     }
 
-    void run() {
+    public void run() {
         int currentLine = 1;
         int currentColumn = 1;
         int ignoreNext = 0;
         for (int i = 0; i < content.length(); i++) {
             char currentCharacter = content.charAt(i);
-            if (ignoreNext > 0) {                
+            if (ignoreNext > 0) {
                 ignoreNext--;
             } else if (currentCharacter == '*') {
                 tokens.add(new Token(Token.TokenType.MULT, currentLine, currentColumn));
@@ -78,7 +82,7 @@ class LexicalAnalyzer {
             } else if (Character.isSpaceChar(currentCharacter) || currentCharacter == '\t') {
                 // nothing
             } else {
-                errors.add(new LexicalError(currentLine, currentColumn, String.valueOf(currentCharacter)));
+                errors.add(new Error(currentLine, currentColumn, String.valueOf(currentCharacter)));
             }
             currentColumn++;
         }
@@ -185,7 +189,7 @@ class LexicalAnalyzer {
         int i = initialTokenPos + 1;
         do {
             if (i == content.length()) {
-                errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
+                errors.add(new Error(line, column, String.valueOf(content.charAt(initialTokenPos))));
                 return 0;
             }
             char next = content.charAt(i);
@@ -234,7 +238,7 @@ class LexicalAnalyzer {
             return 1;
         }
 
-        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
+        errors.add(new Error(line, column, String.valueOf(content.charAt(initialTokenPos))));
         return 0;
     }
 
@@ -245,7 +249,7 @@ class LexicalAnalyzer {
             return 1;
         }
 
-        errors.add(new LexicalError(line, column, String.valueOf(content.charAt(initialTokenPos))));
+        errors.add(new Error(line, column, String.valueOf(content.charAt(initialTokenPos))));
         return 0;
     }
 
@@ -315,11 +319,11 @@ class LexicalAnalyzer {
         return 0;
     }
 
-    LexicalError[] getErrors() {
-        return errors.toArray(new LexicalError[0]);
+    public Error[] getErrors() {
+        return errors.toArray(new Error[0]);
     }
 
-    Token[] getIdentifiedTokens() {
+    public Token[] getIdentifiedTokens() {
         return tokens.toArray(new Token[0]);
     }
 }
