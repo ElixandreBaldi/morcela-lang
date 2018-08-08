@@ -42,6 +42,7 @@ public enum TokenType implements Operable {
     PRINT,
     SCAN,
     STRING,
+    STRING_VALUE,
     DOUBLE,
     BOOLEAN,
     TRUE,
