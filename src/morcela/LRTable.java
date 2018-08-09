@@ -1313,6 +1313,63 @@ public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
         actions.put(TokenType.SWITCH, new ReduceAction(22));
         actions.put(TokenType.SCAN, new ReduceAction(22));
         table.put(new State(121), actions);
+        
+        //State 122
+        actions = new HashMap<>();
+        actions.put(TokenType.OPEN_PAR, new ShiftAction(50));
+        actions.put(NonTerminal.CONDITION, new GotoAction(132));
+        table.put(new State(122), actions);
+
+        //State 123
+        actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ReduceAction(6));
+        table.put(new State(123), actions);
+        
+        //State 124
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(11));
+        table.put(new State(124), actions);
+        
+        //State 125
+        actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ShiftAction(133));
+        table.put(new State(125, actions);        
+
+        //State 126
+        actions = new HashMap<>();
+        actions.put(TokenType.ID, new ShiftAction(134));
+        table.put(new State(126), actions);                
+        
+        //State 127
+        actions = new HashMap<>();
+        actions.put(TokenType.DOUBLE_DOT, new ShiftAction(135));
+        table.put(new State(127), actions);
+        
+        //State 128
+        actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ReduceAction(34));
+        table.put(new State(128), actions);
+        
+        //State 129
+        actions = new HashMap<>();
+        actions.put(TokenType.ELSE, new ShiftAction(137));
+        actions.put(NonTerminal.ELSE_STATEMENT, new GotoAction(136));
+        table.put(new State(129), actions);
+        
+        //State 130
+        actions = new HashMap<>();
+        actions.put(TokenType.IF, new ShiftAction(139));
+        table.put(new State(130), actions);
+        
+        //State 131
+        actions = new HashMap<>();
+        actions.put(TokenType.ELSE, new ReduceAction(28));
+        table.put(new State(131), actions);
+        
+        //State 132
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ShiftAction(140));
+        table.put(new State(132), actions);
 
         // State 133
         actions = new HashMap<>();
