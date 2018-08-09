@@ -1000,6 +1000,7 @@ public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
         //State 100
         actions = new HashMap<>();
         actions.put(TokenType.ID, new ReduceAction(65));
+        actions.put(TokenType.WHILE, new ReduceAction(65));
         actions.put(TokenType.STOP, new ReduceAction(65));
         actions.put(TokenType.DO, new ReduceAction(65));
         actions.put(TokenType.IF, new ReduceAction(65));
@@ -1007,6 +1008,122 @@ public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
         actions.put(TokenType.PRINT, new ReduceAction(65));
         actions.put(TokenType.SCAN, new ReduceAction(65));
         table.put(new State(100), actions);
+
+        //State 101
+        actions = new HashMap<>();
+        actions.put(TokenType.ID, new ReduceAction(35));
+        actions.put(TokenType.WHILE, new ReduceAction(35));
+        actions.put(TokenType.STOP, new ReduceAction(35));
+        actions.put(TokenType.DO, new ReduceAction(35));
+        actions.put(TokenType.IF, new ReduceAction(35));
+        actions.put(TokenType.SWITCH, new ReduceAction(35));
+        actions.put(TokenType.PRINT, new ReduceAction(35));
+        actions.put(TokenType.SCAN, new ReduceAction(35));
+        table.put(new State(101), actions);
+
+        //State 102
+        actions = new HashMap<>();
+        actions.put(TokenType.ID, new ReduceAction(36));
+        actions.put(TokenType.WHILE, new ReduceAction(36));
+        actions.put(TokenType.STOP, new ReduceAction(36));
+        actions.put(TokenType.DO, new ReduceAction(36));
+        actions.put(TokenType.IF, new ReduceAction(36));
+        actions.put(TokenType.SWITCH, new ReduceAction(36));
+        actions.put(TokenType.PRINT, new ReduceAction(36));
+        actions.put(TokenType.SCAN, new ReduceAction(36));
+        table.put(new State(102), actions);
+
+        //State 103
+        actions = new HashMap<>();
+        actions.put(TokenType.BOOLEAN, new ShiftAction(16));
+        actions.put(TokenType.DOUBLE, new ShiftAction(17));
+        actions.put(TokenType.STRING, new ShiftAction(18));
+        actions.put(NonTerminal.VAR_DECLARATION, new GotoAction(123));
+        actions.put(NonTerminal.VAR_TYPE, new GotoAction(14));
+        table.put(new State(103), actions);
+
+        //State 104
+        actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_SIZE_STRING, new ShiftAction(124));
+        table.put(new State(104), actions);
+
+        //State 105
+        actions = new HashMap<>();
+        actions.put(TokenType.CASE, new ShiftAction(126));
+        actions.put(TokenType.DFLT, new ShiftAction(127));
+        actions.put(NonTerminal.CASE_STATEMENT, new GotoAction(125));
+        table.put(new State(105), actions);
+
+        //State 106
+        actions = new HashMap<>();
+        actions.put(TokenType.ELSE, new ShiftAction(130));
+        actions.put(NonTerminal.ELSE_IF_STATEMENT, new ShiftAction(129));
+        table.put(new State(106), actions);
+
+        //State 107
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(46));
+        actions.put(TokenType.CLOSE_PAR, new ReduceAction(46));
+        actions.put(TokenType.AND, new ShiftAction(82));
+        actions.put(TokenType.OR, new ShiftAction(83));
+        actions.put(TokenType.XOR, new ShiftAction(84));
+        actions.put(TokenType.EQ, new ReduceAction(46));
+        actions.put(TokenType.BIGGER, new ReduceAction(46));
+        actions.put(TokenType.LESS, new ReduceAction(46));
+        actions.put(TokenType.BIGGER_EQ, new ReduceAction(46));
+        actions.put(TokenType.LESS_EQ, new ReduceAction(46));
+        actions.put(TokenType.DIF, new ReduceAction(46));
+        actions.put(NonTerminal.LOGICAL_STATEMENT_LINE, new GotoAction(81));
+        table.put(new State(107), actions);
+
+        //State 108
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(47));
+        actions.put(TokenType.CLOSE_PAR, new ReduceAction(47));
+        actions.put(TokenType.AND, new ShiftAction(82));
+        actions.put(TokenType.OR, new ShiftAction(83));
+        actions.put(TokenType.XOR, new ShiftAction(84));
+        actions.put(TokenType.EQ, new ReduceAction(47));
+        actions.put(TokenType.BIGGER, new ReduceAction(47));
+        actions.put(TokenType.LESS, new ReduceAction(47));
+        actions.put(TokenType.BIGGER_EQ, new ReduceAction(47));
+        actions.put(TokenType.LESS_EQ, new ReduceAction(47));
+        actions.put(TokenType.DIF, new ReduceAction(47));
+        actions.put(NonTerminal.LOGICAL_STATEMENT_LINE, new GotoAction(81));
+        table.put(new State(108), actions);
+
+        //State 109
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(48));
+        actions.put(TokenType.CLOSE_PAR, new ReduceAction(48));
+        actions.put(TokenType.AND, new ShiftAction(82));
+        actions.put(TokenType.OR, new ShiftAction(83));
+        actions.put(TokenType.XOR, new ShiftAction(84));
+        actions.put(TokenType.EQ, new ReduceAction(48));
+        actions.put(TokenType.BIGGER, new ReduceAction(48));
+        actions.put(TokenType.LESS, new ReduceAction(48));
+        actions.put(TokenType.BIGGER_EQ, new ReduceAction(48));
+        actions.put(TokenType.LESS_EQ, new ReduceAction(48));
+        actions.put(TokenType.DIF, new ReduceAction(48));
+        actions.put(NonTerminal.LOGICAL_STATEMENT_LINE, new GotoAction(81));
+        table.put(new State(109), actions);
+
+        //State 110
+        actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(50));
+        actions.put(TokenType.CLOSE_PAR, new ReduceAction(50));
+        actions.put(TokenType.AND, new ReduceAction(50));
+        actions.put(TokenType.OR, new ReduceAction(50));
+        actions.put(TokenType.XOR, new ReduceAction(50));
+        actions.put(TokenType.EQ, new ShiftAction(86));
+        actions.put(TokenType.BIGGER, new ShiftAction(87));
+        actions.put(TokenType.LESS, new ShiftAction(88));
+        actions.put(TokenType.BIGGER_EQ, new ShiftAction(89));
+        actions.put(TokenType.LESS_EQ, new ShiftAction(90));
+        actions.put(TokenType.DIF, new ShiftAction(91));
+        actions.put(NonTerminal.RELATIONAL_STATEMENT_LINE, new GotoAction(85));
+        table.put(new State(110), actions);
+
 
         return table;
     }
