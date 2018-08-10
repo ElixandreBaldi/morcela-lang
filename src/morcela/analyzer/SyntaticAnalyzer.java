@@ -24,6 +24,7 @@ public class SyntaticAnalyzer implements Analyzer {
     }
 
     public void run() {
+        Boolean noErrors = Boolean.TRUE;
         Stack<Stackable> auxStack = new Stack<>();
         auxStack.push(new State(0));
         LRTable table = LRTable.getInstance();
@@ -31,8 +32,18 @@ public class SyntaticAnalyzer implements Analyzer {
             Token currentInput = input.peek();
             State nextState = (State) auxStack.peek();
             Action action = table.get(nextState.id()).get(currentInput.getType());
-            action.apply(auxStack, input);
+            if (action != null) {
+                action.apply(auxStack, input);
+            } else {
+                // error!
+                noErrors = Boolean.FALSE;
+            }
         }
+        accept = noErrors;
+    }
+
+    public boolean accepted() {
+        return accept;
     }
 
     @Override

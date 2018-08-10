@@ -87,6 +87,8 @@ public class LexicalAnalyzer implements Analyzer {
             }
             currentColumn++;
         }
+
+        tokens.add(new Token(TokenType.EOF, currentLine, currentColumn));
     }
 
     private int lookAheadLetter(int line, int column, int initialTokenPos) {

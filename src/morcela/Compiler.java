@@ -27,6 +27,7 @@ class Compiler {
         stackContent.addAll(tokens);
         SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer(stackContent);
         syntaticAnalyzer.run();
+        System.out.println(syntaticAnalyzer.accepted());
         errors.addAll(Arrays.asList(lexicalAnalyzer.getErrors()));
         errors.addAll(Arrays.asList(syntaticAnalyzer.getErrors()));
     }
