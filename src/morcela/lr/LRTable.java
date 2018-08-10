@@ -95,6 +95,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 12
         actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ReduceAction(5, 1));
         actions.put(TokenType.DOUBLE_DOT, new ShiftAction(33));
         actions.put(TokenType.WHILE, new ShiftAction(31));
         actions.put(TokenType.STOP, new ShiftAction(34));
