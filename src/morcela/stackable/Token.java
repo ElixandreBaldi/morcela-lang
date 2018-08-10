@@ -29,6 +29,10 @@ public class Token implements Stackable {
         return "<" + type + ", " + content + "," + line + ":" + column + ">";
     }
 
+    public TokenType getType() {
+        return type;
+    }
+
     Object[] toRow() {
         final int MAX_CONTENT_LEN = 40;
         StringBuilder contentStringBuilder = new StringBuilder(MAX_CONTENT_LEN);

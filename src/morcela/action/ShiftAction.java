@@ -2,6 +2,7 @@ package morcela.action;
 
 import morcela.stackable.Stackable;
 import morcela.stackable.State;
+import morcela.stackable.Token;
 
 import java.util.Stack;
 
@@ -12,12 +13,9 @@ public class ShiftAction implements Action {
         this.state = new State(state);
     }
 
-    public ShiftAction(State state) {
-        this.state = state;
-    }
-
     @Override
-    public void apply(Stack<Stackable> target) {
-        //
+    public void apply(Stack<Stackable> stack, Stack<Token> input) {
+        stack.push(input.pop());
+        stack.push(state);
     }
 }

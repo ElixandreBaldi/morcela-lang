@@ -1,6 +1,8 @@
 package morcela.analyzer;
 
+import morcela.action.Action;
 import morcela.error.Error;
+import morcela.lr.LRTable;
 import morcela.stackable.Stackable;
 import morcela.stackable.State;
 import morcela.stackable.Token;
@@ -23,9 +25,13 @@ public class SyntaticAnalyzer implements Analyzer {
 
     public void run() {
         Stack<Stackable> auxStack = new Stack<>();
-        auxStack.push(State.makeInitialState());
+        auxStack.push(new State(0));
+        LRTable table = LRTable.getInstance();
         while (!input.empty()) {
-            Stackable current = input.pop();
+            Token currentInput = input.peek();
+            State nextState = (State) auxStack.peek();
+            Action action = table.get(nextState.id()).get(currentInput.getType());
+            action.apply(auxStack, input);
         }
     }
 

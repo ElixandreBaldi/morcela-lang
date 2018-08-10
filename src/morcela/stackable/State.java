@@ -1,13 +1,13 @@
 package morcela.stackable;
 
 public class State implements Stackable {
-    private int id;
+    private Integer id;
 
-    public static State makeInitialState() {
-        return new State(0);
+    public State(Integer id) {
+        this.id = id;
     }
 
-    public State(int id) {
-        this.id = id;
+    public Integer id() {
+        return id;
     }
 }

@@ -2,6 +2,7 @@ package morcela.action;
 
 import morcela.stackable.Production;
 import morcela.stackable.Stackable;
+import morcela.stackable.Token;
 
 import java.util.Stack;
 
@@ -18,7 +19,7 @@ public class ReduceAction implements Action {
     }
 
     @Override
-    public void apply(Stack<Stackable> target) {
-        //
+    public void apply(Stack<Stackable> stack, Stack<Token> input) {
+
     }
 }
