@@ -9,11 +9,18 @@ import morcela.stackable.TokenType;
 import java.util.HashMap;
 
 public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
+
+    private static LRTable instance = null;
+
     private LRTable() {
         // Empty private constructor.
     }
 
-    public static LRTable newInstance() {
+    public static LRTable getInstance() {
+        if (instance != null) {
+            return instance;
+        }
+
         LRTable table = new LRTable();
         HashMap<Operable, Action> actions;
 
@@ -1333,7 +1340,7 @@ public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
         //State 125
         actions = new HashMap<>();
         actions.put(TokenType.CLOSE_BRACES, new ShiftAction(133));
-        table.put(new State(125, actions);        
+        table.put(new State(125), actions);
 
         //State 126
         actions = new HashMap<>();
@@ -1576,6 +1583,8 @@ public class LRTable extends HashMap<State, HashMap<Operable, Action>> {
         actions.put(TokenType.ELSE, new ReduceAction(27));
         table.put(new State(152), actions);
 
-        return table;
+        instance = table;
+
+        return instance;
     }
 }
