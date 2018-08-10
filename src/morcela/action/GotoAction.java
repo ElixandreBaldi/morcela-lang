@@ -14,6 +14,10 @@ public class GotoAction implements Action {
         this.destiny = new State(destiny);
     }
 
+    State getDestiny() {
+        return destiny;
+    }
+
     @Override
     public void apply(Stack<Stackable> stack, Stack<Token> input) {
 
