@@ -1,6 +1,9 @@
 MORCELA{
     VAR { // Declaração de variáveis
-       DOUBLE: nota, ic_nota, count, media;
+       DOUBLE: nota; 
+       DOUBLE: ic_nota;
+       DOUBLE: count; 
+       DOUBLE: media;
        BOOLEAN: aprovacao;
     }
 

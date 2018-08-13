@@ -17,7 +17,5 @@ public class ShiftSpecialAction implements Action {
     public void apply(Stack<Stackable> stack, Stack<Token> input) {
         stack.push(input.peek());
         stack.push(state);
-        
-        
     }
 }
