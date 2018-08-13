@@ -13,20 +13,13 @@ public class ReduceAction implements Action {
 
     private Production production;
 
-    private Integer before = 0;
-
     public ReduceAction(Integer production) {
         this.production = ProductionList.getInstance().get(production);
     }
 
-    public ReduceAction(Integer production, Integer before) {
-        this.production = ProductionList.getInstance().get(production);
-        this.before = before;
-    }
-
     @Override
     public void apply(Stack<Stackable> stack, Stack<Token> input) {
-        for (int i = 0; i < (production.getSize() - before) * 2; ++i) {
+        for (int i = 0; i < production.getSize() * 2; ++i) {
             stack.pop();
         }
         State nextState = (State) stack.peek();
