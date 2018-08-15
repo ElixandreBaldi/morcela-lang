@@ -316,7 +316,7 @@ public class LexicalAnalyzer implements Analyzer {
         if (next == '-') {
             tokens.add(new Token(TokenType.DEC, line, column));
             return 1;
-        }
+        } // TODO lookahead number
 
         tokens.add(new Token(TokenType.SUB, line, column));
         return 0;
