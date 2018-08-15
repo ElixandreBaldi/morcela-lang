@@ -660,7 +660,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
         actions.put(TokenType.SUB, new ShiftAction(95));
         actions.put(TokenType.MULT, new ShiftAction(96));
         actions.put(TokenType.DIV, new ShiftAction(97));
-        actions.put(NonTerminal.ATTRIBUTION_STATEMENT, new GotoAction(93));
+        actions.put(NonTerminal.ARITHMETIC_STATEMENT_LINE, new GotoAction(93));
         table.put((66), actions);
 
         // State 67

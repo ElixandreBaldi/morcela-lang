@@ -5,12 +5,13 @@ MORCELA{
        DOUBLE: count; 
        DOUBLE: media;
        BOOLEAN: aprovacao;
+       STRING: texto[20];
     }
 
     BODY {
         count = 1;
-        PRINT("Informa a primeira nota: ");
-        SCAN(ic_nota);
+        PRINT("Informa a primeira nota: ")
+        SCAN(ic_nota)
 
         WHILE (nota != -1) {
             PRINT("Informe outra nota ou digite '-1' para finalizar:");
