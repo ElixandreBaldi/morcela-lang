@@ -302,6 +302,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 27
         actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ShiftSpecialAction(28));
         actions.put(TokenType.ID, new ShiftAction(33));
         actions.put(TokenType.WHILE, new ShiftAction(31));
         actions.put(TokenType.STOP, new ShiftAction(34));
@@ -1039,6 +1040,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         //State 102
         actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ReduceAction(36));
         actions.put(TokenType.ID, new ReduceAction(36));
         actions.put(TokenType.WHILE, new ReduceAction(36));
         actions.put(TokenType.STOP, new ReduceAction(36));
