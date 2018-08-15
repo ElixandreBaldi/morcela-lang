@@ -569,7 +569,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
         actions.put(TokenType.AND, new ShiftAction(82));
         actions.put(TokenType.OR, new ShiftAction(83));
         actions.put(TokenType.XOR, new ShiftAction(84));
-        actions.put(NonTerminal.LOGICAL_STATEMENT, new ShiftAction(81));
+        actions.put(NonTerminal.LOGICAL_STATEMENT, new GotoAction(81));
         table.put((60), actions);
 
         // State 61
@@ -1078,7 +1078,8 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
         //State 106
         actions = new HashMap<>();
         actions.put(TokenType.ELSE, new ShiftAction(130));
-        actions.put(NonTerminal.ELSE_IF_STATEMENT, new ShiftAction(129));
+        actions.put(TokenType.SWITCH, new ShiftSpecialAction(131));
+        actions.put(NonTerminal.ELSE_IF_STATEMENT, new GotoAction(129));
         table.put((106), actions);
 
         //State 107
@@ -1375,6 +1376,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
         //State 129
         actions = new HashMap<>();
         actions.put(TokenType.ELSE, new ShiftAction(137));
+        actions.put(TokenType.SWITCH, new ShiftSpecialAction(138));
         actions.put(NonTerminal.ELSE_STATEMENT, new GotoAction(136));
         table.put((129), actions);
 
@@ -1386,6 +1388,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
         //State 131
         actions = new HashMap<>();
         actions.put(TokenType.ELSE, new ReduceAction(28));
+        actions.put(TokenType.SWITCH, new ReduceAction(28));
         table.put((131), actions);
 
         //State 132
