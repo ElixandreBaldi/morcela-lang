@@ -1,5 +1,6 @@
 MORCELA{
     BODY {
-        PRINT("Informa a primeira nota: ");
+        PRINT("Informa a primeira nota: ")
     }
 }
+

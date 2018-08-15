@@ -201,7 +201,7 @@ public class LexicalAnalyzer implements Analyzer {
             } else break;
             i++;
         } while (true);
-        tokens.add(new Token(TokenType.STRING, line, column, stringContent.toString()));
+        tokens.add(new Token(TokenType.STRING_VALUE, line, column, stringContent.toString()));
 
         return i - initialTokenPos;
     }

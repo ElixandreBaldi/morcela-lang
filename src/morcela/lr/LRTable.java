@@ -279,6 +279,8 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 26
         actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ShiftSpecialAction(28));
+        actions.put(TokenType.SEMICOLON, new ShiftSpecialAction(28));
         actions.put(TokenType.ID, new ShiftAction(33));
         actions.put(TokenType.WHILE, new ShiftAction(31));
         actions.put(TokenType.STOP, new ShiftAction(34));
@@ -321,6 +323,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 28
         actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(21));
         actions.put(TokenType.CLOSE_BRACES, new ReduceAction(21));
         actions.put(TokenType.CASE, new ReduceAction(21));
         actions.put(TokenType.DFLT, new ReduceAction(21));
@@ -427,6 +430,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 46
         actions = new HashMap<>();
+        actions.put(TokenType.SEMICOLON, new ReduceAction(19));
         actions.put(TokenType.CLOSE_BRACES, new ReduceAction(19));
         actions.put(TokenType.CASE, new ReduceAction(19));
         actions.put(TokenType.DFLT, new ReduceAction(19));
@@ -515,7 +519,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 55
         actions = new HashMap<>();
-        actions.put(TokenType.STRING_VALUE, new ReduceAction(73));
+        actions.put(TokenType.STRING_VALUE, new ShiftAction(73));
         table.put((55), actions);
 
         // State 56
@@ -1021,6 +1025,8 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         //State 101
         actions = new HashMap<>();
+        actions.put(TokenType.CLOSE_BRACES, new ReduceAction(35));
+        actions.put(TokenType.SEMICOLON, new ReduceAction(35));
         actions.put(TokenType.ID, new ReduceAction(35));
         actions.put(TokenType.WHILE, new ReduceAction(35));
         actions.put(TokenType.STOP, new ReduceAction(35));
