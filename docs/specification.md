@@ -497,7 +497,7 @@ MORCELA {
 28) <ELSE_IF_STATEMENT> -> ε
 29) <ELSE_STATEMENT> -> else open_braces <BODY_STATEMENT> close_braces
 30) <ELSE_STATEMENT> -> ε
-31) <SWITCH_STATEMENT> -> switch open_braces id close_par open_braces <CASE_STATEMENT> close_braces
+31) <SWITCH_STATEMENT> -> switch open_par id close_par open_braces <CASE_STATEMENT> close_braces
 32) <CASE_STATEMENT> -> case id double_dot <BODY STATEMENT> <CASE_STATEMENT>
 33) <CASE_STATEMENT> -> dflt double_dot <BODY_STATEMENT>
 34) <CASE_STATEMENT> -> ε 
