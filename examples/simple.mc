@@ -1,4 +1,7 @@
 MORCELA{    		
-	BODY{	
+	BODY{
+        WHILE (-1){
+            PRINT('OI');
+        }	
 	}
 }

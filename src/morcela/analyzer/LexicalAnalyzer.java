@@ -74,7 +74,7 @@ public class LexicalAnalyzer implements Analyzer {
             } else if (currentCharacter == '-') {
                 ignoreNext = lookAheadMinus(currentLine, currentColumn, i);
             } else if (Character.isDigit(currentCharacter)) {
-                ignoreNext = lookAheadDigit(currentLine, currentColumn, i);
+                ignoreNext = lookAheadDigit(currentLine, currentColumn, i, false);
             } else if (letterPattern.matcher(String.valueOf(currentCharacter)).matches()) {
                 ignoreNext = lookAheadLetter(currentLine, currentColumn, i);
             } else if (currentCharacter == '\n') {
@@ -169,8 +169,11 @@ public class LexicalAnalyzer implements Analyzer {
         }
     }
 
-    private int lookAheadDigit(int line, int column, int initialTokenPos) {
+    private int lookAheadDigit(int line, int column, int initialTokenPos, boolean isNegative) {
         StringBuilder number = new StringBuilder();
+        if(isNegative) {
+            number.append('-');
+        }
         int i = initialTokenPos;
         do {
             if (i == content.length()) break;
@@ -309,14 +312,18 @@ public class LexicalAnalyzer implements Analyzer {
 
         tokens.add(new Token(TokenType.SUM, line, column));
         return 0;
-    }
+    }    
 
     private int lookAheadMinus(int line, int column, int initialTokenPos) {
         char next = content.charAt(initialTokenPos + 1);
         if (next == '-') {
             tokens.add(new Token(TokenType.DEC, line, column));
             return 1;
-        } // TODO lookahead number
+        } 
+        
+        if(Character.isDigit(next)) {            
+            return (lookAheadDigit(line, column, initialTokenPos + 1, true)) + 1;
+        }
 
         tokens.add(new Token(TokenType.SUB, line, column));
         return 0;
