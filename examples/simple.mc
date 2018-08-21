@@ -1,6 +1,9 @@
-MORCELA{    		
+MORCELA{
+    VAR {
+        BOOLEAN: oi;
+    }
 	BODY{
-        WHILE (-1){
+        WHILE (oi){
             PRINT('OI');
         }	
 	}
