@@ -502,7 +502,7 @@ MORCELA {
 33) <ELSE_STATEMENT> -> else open_braces <BODY_STATEMENT> close_braces
 34) <ELSE_STATEMENT> -> ε
 35) <SWITCH_STATEMENT> -> switch open_par id close_par open_braces <CASE_STATEMENT> close_braces
-36) <CASE_STATEMENT> -> case id double_dot <BODY STATEMENT> <CASE_STATEMENT>
+36) <CASE_STATEMENT> -> case id double_dot <BODY_STATEMENT> <CASE_STATEMENT>
 37) <CASE_STATEMENT> -> dflt double_dot <BODY_STATEMENT>
 38) <CASE_STATEMENT> -> ε 
 39) <PRINT_STATEMENT> -> print open_par string_value close_par semicolon
