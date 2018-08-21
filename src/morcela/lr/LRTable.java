@@ -1,9 +1,6 @@
 package morcela.lr;
 
-import morcela.action.Action;
-import morcela.action.GotoAction;
-import morcela.action.ReduceAction;
-import morcela.action.ShiftAction;
+import morcela.action.*;
 import morcela.stackable.NonTerminal;
 import morcela.stackable.Operable;
 import morcela.stackable.TokenType;
@@ -35,6 +32,7 @@ public class LRTable extends HashMap<Integer, HashMap<Operable, Action>> {
 
         // State 1
         actions = new HashMap<>();
+        actions.put(TokenType.EOF, new AcceptAction());
         table.put(1, actions);
 
 
