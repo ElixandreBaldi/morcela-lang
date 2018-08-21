@@ -4,6 +4,6 @@ MORCELA{
     }
 
     BODY {
-        count = 1;        
+        count = oi;
     }
 }
