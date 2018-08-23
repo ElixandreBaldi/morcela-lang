@@ -41,7 +41,7 @@ public class ProductionList extends HashMap<Integer, Production> {
         list.put(20, new Production(2, NonTerminal.BODY_STATEMENT));
         list.put(21, new Production(2, NonTerminal.BODY_STATEMENT));
         list.put(22, new Production(2, NonTerminal.BODY_STATEMENT));
-        list.put(23, new Production(1, NonTerminal.BODY_STATEMENT_LINE));
+        list.put(23, new Production(0, NonTerminal.BODY_STATEMENT));
         list.put(24, new Production(2, NonTerminal.BODY_STATEMENT_LINE));
         list.put(25, new Production(4, NonTerminal.WHILE_STATEMENT));
         list.put(26, new Production(4, NonTerminal.WHILE_STATEMENT));
@@ -89,8 +89,9 @@ public class ProductionList extends HashMap<Integer, Production> {
         list.put(68, new Production(2, NonTerminal.ARITHMETIC_STATEMENT_LINE));        
         list.put(69, new Production(2, NonTerminal.ARITHMETIC_STATEMENT_LINE));        
         list.put(70, new Production(3, NonTerminal.ATTRIBUTION_STATEMENT));        
-        list.put(71, new Production(3, NonTerminal.ATTRIBUTION_STATEMENT));        
-        list.put(72, new Production(3, NonTerminal.ATTRIBUTION_STATEMENT));       
+        list.put(71, new Production(1, NonTerminal.ATTRIBUTION_STATEMENT_LINE));        
+        list.put(72, new Production(1, NonTerminal.ATTRIBUTION_STATEMENT_LINE));       
+        list.put(73, new Production(1, NonTerminal.ATTRIBUTION_STATEMENT_LINE));       
         
         instance = list;
 

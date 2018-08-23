@@ -25,6 +25,7 @@ public enum NonTerminal implements Stackable, Operable {
     ARITHMETIC_STATEMENT,
     ARITHMETIC_STATEMENT_LINE,
     ATTRIBUTION_STATEMENT,
+    ATTRIBUTION_STATEMENT_LINE,
     INC_STATEMENT,
     DEC_STATEMENT,
     BODY_STATEMENT_LINE,
@@ -36,4 +37,5 @@ public enum NonTerminal implements Stackable, Operable {
     ELSE_IF_STATEMENT_LINE_LINE,
     RELATIONAL_STATEMENT,
     RELATIONAL_STATEMENT_LINE
+    
 }
