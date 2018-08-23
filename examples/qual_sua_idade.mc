@@ -1,6 +1,7 @@
 MORCELA {
     VAR { // Declaração de variáveis
-       DOUBLE: year, age;
+       DOUBLE: year;
+       DOUBLE: age;
        BOOLEAN: isFuture;
     }
 

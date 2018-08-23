@@ -1,6 +1,6 @@
 MORCELA{
     VAR { // Declaração de variáveis       
-       DOUBLE: count;        
+       DOUBLE: count;
     }
 
     BODY {
