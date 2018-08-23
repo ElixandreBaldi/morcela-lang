@@ -1,5 +1,7 @@
 package morcela;
 
+import morcela.error.Error;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -71,6 +73,13 @@ public class Main {
 
     private static void compile(String contents) {
         Compiler compiler = new Compiler(contents);
-        compiler.run();
+        Boolean accepted = compiler.run();
+        if (!accepted) {
+            for (Error error : compiler.getErrors()) {
+                System.out.println(error);
+            }
+        } else {
+            System.out.println("Compiled successfully.");
+        }
     }
 }

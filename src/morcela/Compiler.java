@@ -18,7 +18,7 @@ class Compiler {
         this.errors = new ArrayList<>();
     }
 
-    void run() {
+    Boolean run() {
         LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(content);
         lexicalAnalyzer.run();
         List<Token> tokens = Arrays.asList(lexicalAnalyzer.getIdentifiedTokens());
@@ -27,9 +27,9 @@ class Compiler {
         stackContent.addAll(tokens);
         SyntaticAnalyzer syntaticAnalyzer = new SyntaticAnalyzer(stackContent);
         syntaticAnalyzer.run();
-        System.out.println(syntaticAnalyzer.accepted());
         errors.addAll(Arrays.asList(lexicalAnalyzer.getErrors()));
         errors.addAll(Arrays.asList(syntaticAnalyzer.getErrors()));
+        return syntaticAnalyzer.accepted();
     }
 
     Error[] getErrors() {
