@@ -5,6 +5,6 @@ MORCELA{
 	BODY{
         WHILE (oi){
             PRINT("OI");
-        }	
+        };	
 	}
 }
