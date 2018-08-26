@@ -13,16 +13,16 @@ MORCELA{
         PRINT("Informa a primeira nota: ");
         SCAN(ic_nota);
 
-        WHILE (-1) {
+        WHILE (nota != -1) {
             PRINT("Informe outra nota ou digite '-1' para finalizar:");
             SCAN(nota);
             if(nota == -1) {
                 STOP;
-            }
+            };
 
             ic_nota = ic_nota + nota;
             count++;
-        }
+        };
         media = ic_nota / count;
 
         PRINT("A média aritimética das notas informadas é: ");
