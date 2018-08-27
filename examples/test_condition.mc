@@ -17,10 +17,14 @@ MORCELA{
 
         IF(test){
             i = 2;
-        } ELSE IF(oi) {
-            i = 3;
-        } ELSE IF (jaz) {
-            i = 4;
+        } ELSE {
+            IF(oi) {
+                i = 3;
+            } ELSE {
+                IF (jaz) {
+                    i = 4;
+                };
+            };
         };
 
         DO {
