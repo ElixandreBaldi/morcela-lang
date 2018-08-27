@@ -16,7 +16,7 @@ MORCELA{
         WHILE (nota != -1) {
             PRINT("Informe outra nota ou digite '-1' para finalizar:");
             SCAN(nota);
-            if(nota == -1) {
+            IF(nota == -1) {
                 STOP;
             };
 
