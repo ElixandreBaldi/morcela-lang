@@ -16,7 +16,7 @@ Em questões estruturais, a MorcelaLang é baseada em Pascal, pois as variáveis
 
 Ao final de cada linha deverá aparecer o ponto e vírgula (;).
 
-Como estruturas de repetição, há o `WHILE` (verIFica condição antes de executar o procedimento) e o `DO WHILE` (verIFica condição depois de executar o procedimento).
+Como estruturas de repetição, há o `WHILE` (verifica condição antes de executar o procedimento) e o `DO WHILE` (verifica condição depois de executar o procedimento).
 
 Têm-se, também, o seguintes recursos: `IF`, `WHILE`, `DO WHILE` e `SWITCH CASE` e os seguintes tipos primitivos: `STRING`, `DOUBLE` e `BOOLEAN`.
 
@@ -86,7 +86,7 @@ Os operandos 1 e 2 podem ser tanto variáveis (endereço de valor em memória) q
 
 Para a realizar operações com operadores lógicos é necessário que todas os operandos sejam do tipo `BOOLEAN`.
 
-Vale lembrar que temos o tipo primitivo BOOLEANo e qualquer expressão relacional ou lógica armazena o resultado em um endereço temporário (identificador). O resultado da operação lógica também é armazenado num endereço temporário.
+Vale lembrar que temos o tipo primitivo BOOLEAN e qualquer expressão relacional ou lógica armazena o resultado em um endereço temporário (identificador). O resultado da operação lógica também é armazenado num endereço temporário.
 
 ### And
 
@@ -226,7 +226,7 @@ DOUBLE: nome_do_identificador;
 
 ### BOOLEAN
 
-O tipo `BOOLEAN` armazena dois valores: `TRUE` e `FALSE`. Para representar esses valores utiliza-se 1 byte, de forma que o valor 0 (na base 2) representa `FALSE` e o valor 1 representa `TRUE` (na base 2).
+O tipo `BOOLEAN` armazena dois valores: `1` e `0`. Para representar esses valores utiliza-se 1 byte, de forma que o valor 0 (na base 2) representa `FALSE` e o valor 1 representa `TRUE` (na base 2).
 
 A inicialização do tipo `BOOLEAN` é feita da seguinte forma:
 
@@ -273,8 +273,8 @@ Exemplos de atribuições:
 ```
 Nome_da_string = “olá mundo”;
 Nome_da_string = Nome_de_outra_string;
-Nome_do_boolean = TRUE;
-Nome_do_boolean = FALSE;
+Nome_do_boolean = 1;
+Nome_do_boolean = 0;
 Nome_do_boolean = 1 < 2;
 Nome_do_double = Nome_de_outro_double;
 ```
@@ -292,16 +292,14 @@ Sintaxe:
 ```
 IF (condição) {
 	// procedimentos
-} ELSE IF (condição) {
-	// procedimentos
 } ELSE {
 	// procedimentos
-}
+};
 ```
 
 Semântica:
 
-A estrutura `IF` contém um bloco de procedimentos que serão executados caso a condição seja verdadeira e, caso haja um bloco `ELSE`, o programa ignorará. Caso a condição seja falsa o programa segue o fluxo de forma que pode encontrar um `ELSE IF`, um `ELSE`, ou o fim da estrutura. Caso entre na condição `ELSE IF`, o bloco `ELSE` será ignorado, e caso entre no `ELSE` quer dizer que o(s) bloco(s) acima não foram executados.
+A estrutura `IF` contém um bloco de procedimentos que serão executados caso a condição seja verdadeira e, caso haja um bloco `ELSE`, o programa ignorará. Caso a condição seja falsa o programa segue o fluxo de forma que pode encontrar um `ELSE` ou o fim da estrutura.
 
 As restrições ficam por conta das expressões lógicas (descritas anteriormente).
 
@@ -320,7 +318,7 @@ SWITCH (operando) {
   DFLT:
     //procedimentos
 	   STOP;
-}
+};
 ```
 
 Semântica:
@@ -344,7 +342,7 @@ Sintaxe:
 ```
 WHILE (operando){
 	//procedimentos
-}
+};
 ```
 
 Semântica:
@@ -382,7 +380,7 @@ BOOLEAN: variavel1;
 O termo `BOOLEAN` será utilizado para definir que uma variável será do tipo booleano.
 
 ```
-STRING: variavel1;
+STRING: variavel1[10];
 ```
 
 O termo `STRING`, será utilizado para definir que uma variável será do tipo cadeia de caracteres.
@@ -419,45 +417,45 @@ As palavras reservadas da MorcelaLang são todas em maiúsculo:
 
 ```
 MORCELA {
-  VAR {		
-    STRING: word[255];
-    DOUBLE: double1, y, var, var2;
-    BOLEAN: flag;
+    VAR {		
+        STRING: word[255];
+        DOUBLE: double1, y, var, var2;
+        BOLEAN: flag;
 	}
 
 	BODY {
-    double1 = 1.0;
-    y = 2.0;    
-    var2 = double1;
-    word = "Entre com um valor";
-    PRINT(word);
-    SCAN(var);
-
-    IF ( double1 < y ) {
-		    // Procedimento
+        double1 = 1.0;
+        y = 2.0;    
+        var2 = double1;
+        word = "Entre com um valor";
+        PRINT(word);
+        SCAN(var);
+    
+        IF ( double1 < y ) {
+                // Procedimento
+        };
+    
+        WHILE ( var < var2 ) {
+            // Procedimento
+        };
+    
+        DO {
+            // Procedimento --
+    
+        } WHILE ( var < var2 );
+    
+        SWITCH ( flag ) {
+            CASE flag:
+                //Procedimento --
+                STOP;
+            CASE 1:
+                //Procedimento --
+                STOP;
+            DFLT:
+                //Procedimento --
+                STOP;
+        };
     }
-
-    WHILE ( var < var2 ) {
-		    // Procedimento
-		}
-
-		DO {
-		    // Procedimento --
-
-		} WHILE ( var < var2 );
-
-		SWITCH ( flag ) {
-      CASE flag:
-        -- Procedimento --
-      STOP;
-			CASE 1:
-        -- Procedimento --
-      STOP;
-      DFLT:
-			   -- Procedimento --
-	    STOP;
-		}
-	}
 }
 
 ```
